@@ -3,7 +3,7 @@ package rinte.model;
 import java.util.Date;
 
 public class Band {
-    private int bid = -1;
+    private int b_id = -1;
     private String name = null;
     private String image = null;
     private String artists = null;
@@ -11,12 +11,12 @@ public class Band {
 
     public Band() { }
 
-    public int getID() {
-        return bid;
+    public int getB_id() {
+        return b_id;
     }
 
-    public void setID(int bid) {
-        this.bid = bid;
+    public void setB_id(int b_id) {
+        this.b_id = b_id;
     }
 
     public String getName() {

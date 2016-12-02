@@ -13,13 +13,8 @@
         <% String action = request.getParameter("action");
             System.out.println(action);
         %>
-        <% if (action.equalsIgnoreCase("edit")) {%>
-        Band Name : <input type="text" name="name"
-                           value="<c:out value="${band.name}" />" readonly="readonly"/> (You Can't Change this)<br />
-        <%} else {%>
         Band Name : <input type="text" name="name"
                            value="<c:out value="${band.name}" />" /> <br />
-        <%}%>
         Artists : <input
             type="text" name="artists"
             value="<c:out value="${band.artists}" />" /> <br />

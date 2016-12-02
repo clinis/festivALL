@@ -24,8 +24,8 @@
             <td><c:out value="${band.name}" /></td>
             <td><c:out value="${band.artists}" /></td>
             <td><fmt:formatDate pattern="dd MMM,yyyy" value="${band.registeredon}" /></td>
-            <%--<td><a href="BandController?action=edit&bandID=<c:out value="${band.bid}"/>">Update</a></td>
-            <td><a href="BandController?action=delete&bandID=<c:out value="${band.bid}"/>">Delete</a></td>--%>
+            <td><a href="BandController?action=edit&bandID=<c:out value="${band.b_id}"/>">Update</a></td>
+            <td><a href="BandController?action=delete&bandID=<c:out value="${band.b_id}"/>">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>

@@ -19,7 +19,7 @@ public class BandDAO {
     public void checkBand(Band bnd) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT name FROM bands WHERE b_id = ?");
-            ps.setInt(1, bnd.getID());
+            ps.setInt(1, bnd.getB_id());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) { // found
                 updateBand(bnd);
@@ -63,7 +63,7 @@ public class BandDAO {
             preparedStatement.setString(2, bnd.getImage());
             preparedStatement.setString(3, bnd.getArtists());
             preparedStatement.setDate(4, new java.sql.Date(bnd.getRegisteredon().getTime()));
-            preparedStatement.setInt(5, bnd.getID());
+            preparedStatement.setInt(5, bnd.getB_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class BandDAO {
             ResultSet rs = ps.executeQuery("SELECT * FROM bands WHERE isdeleted=0");
             while (rs.next()) {
                 Band band = new Band();
-                band.setID(rs.getInt("b_id"));
+                band.setB_id(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
                 band.setImage(rs.getString("image"));
                 band.setArtists(rs.getString("artists"));
@@ -151,7 +151,7 @@ public class BandDAO {
             while (rs.next()) {
                 // criando o objeto
                 Band band = new Band();
-                band.setID(rs.getInt("b_id"));
+                band.setBid(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
                 band.setArtists(rs.getString("artists"));
 
@@ -171,7 +171,7 @@ public class BandDAO {
     /*public void deleteBand(HttpServletRequest request) {
         Band deleted = new Band();
         if(request.getParameter("b_id")!=null) {
-            deleted.setID(Integer.parseInt(request.getParameter("b_id")));
+            deleted.setBid(Integer.parseInt(request.getParameter("b_id")));
         }
 
         Connection connection;
@@ -192,7 +192,7 @@ public class BandDAO {
     /*public void updateBand(HttpServletRequest request) {
         Band updated = new Band();
         if(request.getParameter("b_id")!=null) {
-            updated.setID(Integer.parseInt(request.getParameter("b_id")));
+            updated.setBid(Integer.parseInt(request.getParameter("b_id")));
         }
         if(request.getParameter("name")!=null) {
             updated.setName(request.getParameter("name"));
