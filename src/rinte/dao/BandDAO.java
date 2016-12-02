@@ -33,11 +33,11 @@ public class BandDAO {
 
     public void addBand(Band bnd) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bands(name, image, artists, registeredon) values (?, ?, ?, ? )");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bands(name, image, artists) values (?, ?, ? )");
             preparedStatement.setString(1, bnd.getName());
             preparedStatement.setString(2, bnd.getImage());
             preparedStatement.setString(3, bnd.getArtists());
-            preparedStatement.setDate(4, new java.sql.Date(bnd.getRegisteredon().getTime()));
+            //preparedStatement.setDate(4, new java.sql.Date(bnd.getRegisteredon().getTime()));
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -58,13 +58,11 @@ public class BandDAO {
 
     public void updateBand(Band bnd) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bands SET name=?, image=?, artists=?, registeredon=? WHERE b_id=?");
-            System.out.println(new java.sql.Date(bnd.getRegisteredon().getTime()));
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bands SET name=?, image=?, artists=? WHERE b_id=?");
             preparedStatement.setString(1, bnd.getName());
             preparedStatement.setString(2, bnd.getImage());
             preparedStatement.setString(3, bnd.getArtists());
-            preparedStatement.setDate(4, new java.sql.Date(bnd.getRegisteredon().getTime()));
-            preparedStatement.setInt(5, bnd.getB_id());
+            preparedStatement.setInt(4, bnd.getB_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

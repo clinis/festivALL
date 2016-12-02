@@ -66,13 +66,6 @@ public class BandController extends HttpServlet {
             band.setName(request.getParameter("name"));
             band.setImage(request.getParameter("image"));
             band.setArtists(request.getParameter("artists"));
-            try {
-                Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("dob"));
-                System.out.println("rrrrrrrrrrr" + reg);
-                band.setRegisteredon(reg);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
             dao.updateBand(band);
 
@@ -84,13 +77,6 @@ public class BandController extends HttpServlet {
             band.setName(request.getParameter("name"));
             band.setImage(request.getParameter("image"));
             band.setArtists(request.getParameter("artists"));
-            try {
-                Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("dob"));
-                System.out.println("rrrrrrrrrrr" + reg);
-                band.setRegisteredon(reg);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
             dao.addBand(band);
 

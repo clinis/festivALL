@@ -18,11 +18,9 @@
         Artists : <input type="text" name="artists" value="<c:out value="${band.artists}" />" /> <br />
 
         <% if (action.equalsIgnoreCase("edit")) { %>
-        Registration : <input type="hidden" name="dob" value="<fmt:formatDate pattern="yyyy/MM/dd" value="${band.registeredon}" />" readonly="readonly"/>(You Can't Change this)  <br />
         <input type="hidden" name="b_id" value="<c:out value="${band.b_id}" />"/>
         <input type="hidden" name="ac" value="edit" />
         <% } else { %>
-        Registration : <input type="text" name="dob" value="<fmt:formatDate pattern="yyyy/MM/dd" value="${band.registeredon}" />" />(yyyy/MM/dd)  <br />
         <input type="hidden" name="ac" value="add" />
         <% } %>
 
