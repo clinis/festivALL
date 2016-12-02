@@ -1,17 +1,15 @@
-/**
- * Created by dinis on 30/11/16.
- */
-package jdbc.datamodel;
+package rinte.model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Event {
-        private int e_id;
-        private short type;
-        private String name;
-        private Calendar date;
-        private String city;
-        private String local;
+        private int e_id = -1;
+        private short type = -1;
+        private String name = null;
+        private Date date = null;
+        private String city = null;
+        private String local = null;
+        private Date registeredon = null;
 
     public int getID() {
         return e_id;
@@ -37,11 +35,11 @@ public class Event {
         this.name = name;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -60,4 +58,14 @@ public class Event {
     public void setLocal(String local) {
         this.local = local;
     }
+
+    public Date getRegisteredon() {
+        return registeredon;
+    }
+
+    public void setRegisteredon(Date registeredon) {
+        this.registeredon = registeredon;
+    }
+
+
 }
