@@ -59,12 +59,13 @@ public class BandController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Band band = new Band();
+        band.setB_id(Integer.parseInt(request.getParameter("b_id")));
         band.setName(request.getParameter("name"));
         band.setImage(request.getParameter("image"));
         band.setArtists(request.getParameter("artists"));
         try {
             Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("dob"));
-            System.out.println("rrrrrrrrrrr"+ reg);
+            System.out.println("rrrrrrrrrrr" + reg);
             band.setRegisteredon(reg);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -79,7 +80,7 @@ public class BandController extends HttpServlet {
         dao.checkBand(band);
 //        }
         RequestDispatcher view = request.getRequestDispatcher(LIST_BANDS);
-        request.setAttribute("users", dao.getAllBands());
+        request.setAttribute("bands", dao.getAllBands());
         view.forward(request, response);
     }
 }

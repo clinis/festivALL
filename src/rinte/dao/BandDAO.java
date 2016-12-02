@@ -18,7 +18,7 @@ public class BandDAO {
 
     public void checkBand(Band bnd) {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT name FROM bands WHERE b_id = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT b_id FROM bands WHERE b_id = ?");
             ps.setInt(1, bnd.getB_id());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) { // found
@@ -30,6 +30,7 @@ public class BandDAO {
             System.out.println("Error in check() :" + ex.getMessage());
         }
     }
+
     public void addBand(Band bnd) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bands(name, image, artists, registeredon) values (?, ?, ?, ? )");
@@ -99,6 +100,7 @@ public class BandDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                band.setB_id(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
                 band.setImage(rs.getString("image"));
                 band.setArtists(rs.getString("artists"));

@@ -13,22 +13,18 @@
         <% String action = request.getParameter("action");
             System.out.println(action);
         %>
-        Band Name : <input type="text" name="name"
-                           value="<c:out value="${band.name}" />" /> <br />
-        Artists : <input
-            type="text" name="artists"
-            value="<c:out value="${band.artists}" />" /> <br />
 
-        <% if (action.equalsIgnoreCase("edit")) {%>
-        Registration : <input
-            type="text" name="dob"
-            value="<fmt:formatDate pattern="yyyy/MM/dd" value="${band.registeredon}" />" readonly="readonly"/>(You Can't Change this)  <br />
-        <%} else {%>
-        Registration : <input
-            type="text" name="dob"
-            value="<fmt:formatDate pattern="yyyy/MM/dd" value="${band.registeredon}" />" />(yyyy/MM/dd)  <br />
-        <%}%>
-        <input  type="submit" value="Submit" />
+        Band Name : <input type="text" name="name" value="<c:out value="${band.name}" />" /> <br />
+        Artists : <input type="text" name="artists" value="<c:out value="${band.artists}" />" /> <br />
+
+        <% if (action.equalsIgnoreCase("edit")) { %>
+        Registration : <input type="hidden" name="dob" value="<fmt:formatDate pattern="yyyy/MM/dd" value="${band.registeredon}" />" readonly="readonly"/>(You Can't Change this)  <br />
+        <input type="hidden" name="b_id" value="<c:out value="${band.b_id}" />"/>
+        <% } else { %>
+        Registration : <input type="text" name="dob" value="<fmt:formatDate pattern="yyyy/MM/dd" value="${band.registeredon}" />" />(yyyy/MM/dd)  <br />
+        <% } %>
+
+        <input type="submit" value="Submit" />
     </form>
 </body>
 </html>
