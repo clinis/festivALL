@@ -24,7 +24,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin" level="project" />
-    <orderEntry type="library" exported="" name="taglibs-standard-compat-1.2.5" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="mysql-connector-java-5.1.40-bin" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="taglibs-standard-compat-1.2.5" level="project" />
   </component>
 </module>

@@ -4,9 +4,6 @@ import rinte.dao.BandDAO;
 import rinte.model.Band;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

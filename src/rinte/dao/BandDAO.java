@@ -111,6 +111,27 @@ public class BandDAO {
         return band;
     }
 
+    public Band getBandByName(String bname){
+        Band band = new Band();
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM bands WHERE name=?");
+            ps.setString(1, bname);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                band.setB_id(rs.getInt("b_id"));
+                band.setName(rs.getString("name"));
+                band.setImage(rs.getString("image"));
+                band.setArtists(rs.getString("artists"));
+                band.setRegisteredon(rs.getDate("registeredon"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return band;
+    }
+
 
     /* ------------------------------------------------------ */
   /*  public void addBand() throws SQLException {

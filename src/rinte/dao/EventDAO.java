@@ -3,10 +3,7 @@ package rinte.dao;
 import rinte.model.Event;
 import rinte.util.Database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class EventDAO {
     public void checkEvent(Event evt) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT name FROM events WHERE e_id = ?");
-            ps.setInt(1, evt.getID());
+            ps.setInt(1, evt.getE_id());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) { // found
                 updateEvent(evt);
@@ -34,13 +31,13 @@ public class EventDAO {
     }
     public void addEvent(Event evt) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO events(type, name, date, city, local, registeredon) values (?, ?, ?, ?, ?, ? )");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO events(type, name, date, city, local) values (?, ?, ?, ?, ? )");
             preparedStatement.setShort(1, evt.getType());
             preparedStatement.setString(2, evt.getName());
             preparedStatement.setDate(3, new java.sql.Date(evt.getDate().getTime()));
             preparedStatement.setString(4, evt.getCity());
             preparedStatement.setString(5, evt.getLocal());
-            preparedStatement.setDate(6, new java.sql.Date(evt.getRegisteredon().getTime()));
+            //preparedStatement.setDate(6, new java.sql.Date(evt.getRegisteredon().getTime()));
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -61,15 +58,13 @@ public class EventDAO {
 
     public void updateEvent(Event evt) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE events SET type=?, name=?, date=?, city=?, local=?, registeredon=? WHERE e_id=?");
-            System.out.println(new java.sql.Date(evt.getRegisteredon().getTime()));
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE events SET type=?, name=?, date=?, city=?, local=? WHERE e_id=?");
             preparedStatement.setShort(1, evt.getType());
             preparedStatement.setString(2, evt.getName());
             preparedStatement.setDate(3, new java.sql.Date(evt.getDate().getTime()));
             preparedStatement.setString(4, evt.getCity());
             preparedStatement.setString(5, evt.getLocal());
-            preparedStatement.setDate(6, new java.sql.Date(evt.getRegisteredon().getTime()));
-            preparedStatement.setInt(7, evt.getID());
+            preparedStatement.setInt(6, evt.getE_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,10 +74,11 @@ public class EventDAO {
     public List<Event> getAllEvents() {
         List<Event> events = new ArrayList<Event>();
         try {
-            PreparedStatement ps = null;
+            Statement ps = connection.createStatement();
             ResultSet rs = ps.executeQuery("SELECT * FROM events WHERE isdeleted=0");
             while (rs.next()) {
                 Event event = new Event();
+                event.setE_id(rs.getInt("e_id"));
                 event.setType(rs.getShort("type"));
                 event.setName(rs.getString("name"));
                 event.setDate(rs.getDate("date"));
@@ -105,6 +101,7 @@ public class EventDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                event.setE_id(rs.getInt("e_id"));
                 event.setType(rs.getShort("type"));
                 event.setName(rs.getString("name"));
                 event.setDate(rs.getDate("date"));

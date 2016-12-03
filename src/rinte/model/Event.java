@@ -11,11 +11,11 @@ public class Event {
         private String local = null;
         private Date registeredon = null;
 
-    public int getID() {
+    public int getE_id() {
         return e_id;
     }
 
-    public void setID(int e_id) {
+    public void setE_id(int e_id) {
         this.e_id = e_id;
     }
 

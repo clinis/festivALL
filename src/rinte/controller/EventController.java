@@ -43,7 +43,7 @@ public class EventController extends HttpServlet {
 
             request.setAttribute("event", event);
 
-        } else if (action.equalsIgnoreCase("listEvent")){
+        } else if (action.equalsIgnoreCase("listEvents")){
             forward = LIST_EVENTS;
 
             request.setAttribute("events", dao.getAllEvents());
@@ -57,36 +57,50 @@ public class EventController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Event event = new Event();
-        event.setType(Short.parseShort(request.getParameter("type")));
-        event.setName(request.getParameter("name"));
-        try {
-            Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
-            System.out.println(d);
-            event.setDate(d);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String action = request.getParameter("ac");
+
+        if (action.equalsIgnoreCase("edit")) {
+            Event event = new Event();
+            event.setE_id(Integer.parseInt(request.getParameter("e_id")));
+            event.setType(Short.parseShort(request.getParameter("type")));
+            event.setName(request.getParameter("name"));
+            try {
+                Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
+                System.out.println("eddd:"+d);
+                event.setDate(d);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            event.setCity(request.getParameter("city"));
+            event.setLocal(request.getParameter("local"));
+
+            dao.updateEvent(event);
+
+            RequestDispatcher view = request.getRequestDispatcher(LIST_EVENTS);
+            request.setAttribute("events", dao.getAllEvents());
+            view.forward(request, response);
+        } else if (action.equalsIgnoreCase("add")) {
+            Event event = new Event();
+            event.setName(request.getParameter("name"));
+            event.setType(Short.parseShort(request.getParameter("type")));
+
+            try {
+                Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
+                System.out.println("rrrrrrrrrrr"+ reg);
+                event.setDate(reg);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //event.setDate(request.getParameter("date"));
+
+            event.setCity(request.getParameter("city"));
+            event.setLocal(request.getParameter("local"));
+
+            dao.addEvent(event);
+
+            RequestDispatcher view = request.getRequestDispatcher(LIST_EVENTS);
+            request.setAttribute("events", dao.getAllEvents());
+            view.forward(request, response);
         }
-        event.setCity(request.getParameter("city"));
-        event.setLocal(request.getParameter("local"));
-        try {
-            Date dd = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("dob"));
-            System.out.println("rrrrrrrrrrr"+ dd);
-            event.setRegisteredon(dd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        //String userid = request.getParameter("uname");
-//        if(userid == null || userid.isEmpty())
-//        {
-//            dao.addUser(user);
-//        }
-//        else
-//        {
-        dao.checkEvent(event);
-//        }
-        RequestDispatcher view = request.getRequestDispatcher(LIST_EVENTS);
-        request.setAttribute("users", dao.getAllEvents());
-        view.forward(request, response);
     }
 }

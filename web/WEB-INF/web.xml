@@ -15,6 +15,16 @@
     <servlet-name>BandController</servlet-name>
     <url-pattern>/BandController</url-pattern>
 </servlet-mapping>
+
+<servlet>
+    <servlet-name>EventController</servlet-name>
+    <servlet-class>rinte.controller.EventController</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>EventController</servlet-name>
+    <url-pattern>/EventController</url-pattern>
+</servlet-mapping>
+
 <session-config>
     <session-timeout>
         30
