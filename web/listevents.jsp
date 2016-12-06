@@ -30,8 +30,18 @@
             <td><c:out value="${event.city}" /></td>
             <td><c:out value="${event.local}" /></td>
             <td><fmt:formatDate pattern="dd MMM,yyyy" value="${event.registeredon}" /></td>
-            <td><a href="EventController?action=edit&eventID=<c:out value="${event.e_id}"/>">Update</a></td>
-            <td><a href="EventController?action=delete&eventID=<c:out value="${event.e_id}"/>">Delete</a></td>
+            <td>
+                <form method="POST" action="EventController" name="listEdit">
+                    <input type="hidden" name="e_id" value="${event.e_id}">
+                    <input type="submit" name="action" value="Edit" class='btn btn-info btn-xs'></input>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="EventController" name="listDelete">
+                    <input type="hidden" name="e_id" value="${event.e_id}">
+                    <input type="submit" name="action" value="Delete" class='btn btn-danger btn-xs'></input>
+                </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

@@ -19,9 +19,9 @@
 
         <% if (action.equalsIgnoreCase("edit")) { %>
         <input type="hidden" name="b_id" value="<c:out value="${band.b_id}" />"/>
-        <input type="hidden" name="ac" value="edit" />
+        <input type="hidden" name="action" value="edited" />
         <% } else { %>
-        <input type="hidden" name="ac" value="add" />
+        <input type="hidden" name="action" value="added" />
         <% } %>
 
         <input type="submit" value="Submit" />

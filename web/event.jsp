@@ -22,9 +22,9 @@
 
         <% if (action.equalsIgnoreCase("edit")) { %>
         <input type="hidden" name="e_id" value="<c:out value="${event.e_id}" />"/>
-        <input type="hidden" name="ac" value="edit" />
+        <input type="hidden" name="action" value="edited" />
         <% } else { %>
-        <input type="hidden" name="ac" value="add" />
+        <input type="hidden" name="action" value="added" />
         <% } %>
 
         <input type="submit" value="Submit" />

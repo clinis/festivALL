@@ -9,7 +9,7 @@ public class Database {
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/festivall", "root", "password");
+            return DriverManager.getConnection("jdbc:mysql://localhost/festivall?useUnicode=yes&amp;characterEncoding=UTF-8", "root", "password");
         } catch (Exception e) {
             System.out.println("Database.getConnection() Error:" + e.getMessage());
             throw new RuntimeException(e);

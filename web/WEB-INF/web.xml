@@ -7,30 +7,37 @@
 
 
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-<servlet>
-    <servlet-name>BandController</servlet-name>
-    <servlet-class>rinte.controller.BandController</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>BandController</servlet-name>
-    <url-pattern>/BandController</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>BandController</servlet-name>
+        <servlet-class>rinte.controller.BandController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BandController</servlet-name>
+        <url-pattern>/BandController</url-pattern>
+    </servlet-mapping>
 
-<servlet>
-    <servlet-name>EventController</servlet-name>
-    <servlet-class>rinte.controller.EventController</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>EventController</servlet-name>
-    <url-pattern>/EventController</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>EventController</servlet-name>
+        <servlet-class>rinte.controller.EventController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EventController</servlet-name>
+        <url-pattern>/EventController</url-pattern>
+    </servlet-mapping>
 
-<session-config>
-    <session-timeout>
-        30
-    </session-timeout>
-</session-config>
-<welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-</welcome-file-list>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>

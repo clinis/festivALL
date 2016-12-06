@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class BandController extends HttpServlet {
-    public static final String INSERT_OR_EDIT = "/band.jsp";
+    public static final String FORM_INSERT_OR_EDIT = "/band.jsp";
     public static final String LIST_BANDS = "/listbands.jsp";
     private final BandDAO dao;
 
@@ -23,63 +23,80 @@ public class BandController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward="";
+        processRequest(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         String action = request.getParameter("action");
+        System.out.println("Controller action: " + action);
 
-        if (action.equalsIgnoreCase("delete")){
-            int bandID = Integer.parseInt(request.getParameter("bandID"));
-            dao.deleteBand(bandID);
+        request.setAttribute("bands", dao.getAllBands());
+        String forward = LIST_BANDS;
 
-            forward = LIST_BANDS;
-            request.setAttribute("bands", dao.getAllBands());
+        int bandID;
+        Band band;
 
-        } else if (action.equalsIgnoreCase("edit")){
-            forward = INSERT_OR_EDIT;
+        switch (action.toLowerCase()) {
+            case "edit":
+                bandID = Integer.parseInt(request.getParameter("b_id"));
+                band = dao.getBandByID(bandID);
+                request.setAttribute("band", band);
+                request.setAttribute("action", "edit");
+                forward = FORM_INSERT_OR_EDIT;
+                break;
 
-            int bandID = Integer.parseInt(request.getParameter("bandID"));
-            Band band = dao.getBandByID(bandID);
+            case "edited":
+                band = new Band();
+                band.setB_id(Integer.parseInt(request.getParameter("b_id")));
+                band.setName(request.getParameter("name"));
+                band.setImage(request.getParameter("image"));
+                band.setArtists(request.getParameter("artists"));
 
-            request.setAttribute("band", band);
+                dao.updateBand(band);
 
-        } else if (action.equalsIgnoreCase("listBands")){
-            forward = LIST_BANDS;
+                request.setAttribute("bands", dao.getAllBands());
+                forward = LIST_BANDS;
+                break;
 
-            request.setAttribute("bands", dao.getAllBands());
+            case "added":
+                band = new Band();
+                band.setName(request.getParameter("name"));
+                band.setImage(request.getParameter("image"));
+                band.setArtists(request.getParameter("artists"));
 
-        } else {
-            forward = INSERT_OR_EDIT;
+                dao.addBand(band);
+
+                request.setAttribute("bands", dao.getAllBands());
+                forward = LIST_BANDS;
+                break;
+
+            case "delete":
+                bandID = Integer.parseInt(request.getParameter("b_id"));
+
+                dao.deleteBand(bandID);
+
+                request.setAttribute("bands", dao.getAllBands());
+                forward = LIST_BANDS;
+                break;
+
+            case "insert":
+                request.setAttribute("action", "insert");
+                forward = FORM_INSERT_OR_EDIT;
+                break;
+
+            default:
+                request.setAttribute("bands", dao.getAllBands());
+                forward = LIST_BANDS;
+                break;
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("ac");
-
-        if (action.equalsIgnoreCase("edit")) {
-            Band band = new Band();
-            band.setB_id(Integer.parseInt(request.getParameter("b_id")));
-            band.setName(request.getParameter("name"));
-            band.setImage(request.getParameter("image"));
-            band.setArtists(request.getParameter("artists"));
-
-            dao.updateBand(band);
-
-            RequestDispatcher view = request.getRequestDispatcher(LIST_BANDS);
-            request.setAttribute("bands", dao.getAllBands());
-            view.forward(request, response);
-        } else if (action.equalsIgnoreCase("add")){
-            Band band = new Band();
-            band.setName(request.getParameter("name"));
-            band.setImage(request.getParameter("image"));
-            band.setArtists(request.getParameter("artists"));
-
-            dao.addBand(band);
-
-            RequestDispatcher view = request.getRequestDispatcher(LIST_BANDS);
-            request.setAttribute("bands", dao.getAllBands());
-            view.forward(request, response);
-        }
     }
 }

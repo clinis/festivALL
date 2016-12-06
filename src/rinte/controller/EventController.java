@@ -15,7 +15,7 @@ import java.util.Date;
 
 
 public class EventController extends HttpServlet {
-    private static String INSERT_OR_EDIT = "/event.jsp";
+    private static String FORM_INSERT_OR_EDIT = "/event.jsp";
     private static String LIST_EVENTS = "/listevents.jsp";
     private EventDAO dao;
 
@@ -25,82 +25,100 @@ public class EventController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward="";
+        processRequest(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         String action = request.getParameter("action");
+        System.out.println("Controller action: " + action);
 
-        if (action.equalsIgnoreCase("delete")){
-            int eventID = Integer.parseInt(request.getParameter("eventID"));
-            dao.deleteEvent(eventID);
+        request.setAttribute("events", dao.getAllEvents());
+        String forward = LIST_EVENTS;
 
-            forward = LIST_EVENTS;
-            request.setAttribute("events", dao.getAllEvents());
+        int eventID;
+        Event event;
 
-        } else if (action.equalsIgnoreCase("edit")){
-            forward = INSERT_OR_EDIT;
+        switch (action.toLowerCase()){
+            case "delete":
+                eventID = Integer.parseInt(request.getParameter("e_id"));
+                dao.deleteEvent(eventID);
 
-            int eventID = Integer.parseInt(request.getParameter("eventID"));
-            Event event = dao.getEventByID(eventID);
+                forward = LIST_EVENTS;
+                request.setAttribute("events", dao.getAllEvents());
+                break;
 
-            request.setAttribute("event", event);
+            case "edit":
+                forward = FORM_INSERT_OR_EDIT;
 
-        } else if (action.equalsIgnoreCase("listEvents")){
-            forward = LIST_EVENTS;
+                eventID = Integer.parseInt(request.getParameter("e_id"));
+                event = dao.getEventByID(eventID);
 
-            request.setAttribute("events", dao.getAllEvents());
+                request.setAttribute("event", event);
+                request.setAttribute("action", "edit");
+                break;
 
-        } else {
-            forward = INSERT_OR_EDIT;
+            case "edited":
+                event = new Event();
+                event.setE_id(Integer.parseInt(request.getParameter("e_id")));
+                event.setType(Short.parseShort(request.getParameter("type")));
+                event.setName(request.getParameter("name"));
+                try {
+                    Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
+                    System.out.println("eddd:"+d);
+                    event.setDate(d);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                event.setCity(request.getParameter("city"));
+                event.setLocal(request.getParameter("local"));
+
+                dao.updateEvent(event);
+
+                request.setAttribute("events", dao.getAllEvents());
+                forward = LIST_EVENTS;
+                break;
+
+            case "added":
+                event = new Event();
+                event.setName(request.getParameter("name"));
+                event.setType(Short.parseShort(request.getParameter("type")));
+
+                try {
+                    Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
+                    System.out.println("rrrrrrrrrrr"+ reg);
+                    event.setDate(reg);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //event.setDate(request.getParameter("date"));
+
+                event.setCity(request.getParameter("city"));
+                event.setLocal(request.getParameter("local"));
+
+                dao.addEvent(event);
+
+                request.setAttribute("events", dao.getAllEvents());
+                forward = LIST_EVENTS;
+                break;
+
+            case "insert":
+                request.setAttribute("action", "insert");
+                forward = FORM_INSERT_OR_EDIT;
+                break;
+
+            default:
+                request.setAttribute("events", dao.getAllEvents());
+                forward = LIST_EVENTS;
+                break;
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("ac");
-
-        if (action.equalsIgnoreCase("edit")) {
-            Event event = new Event();
-            event.setE_id(Integer.parseInt(request.getParameter("e_id")));
-            event.setType(Short.parseShort(request.getParameter("type")));
-            event.setName(request.getParameter("name"));
-            try {
-                Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
-                System.out.println("eddd:"+d);
-                event.setDate(d);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            event.setCity(request.getParameter("city"));
-            event.setLocal(request.getParameter("local"));
-
-            dao.updateEvent(event);
-
-            RequestDispatcher view = request.getRequestDispatcher(LIST_EVENTS);
-            request.setAttribute("events", dao.getAllEvents());
-            view.forward(request, response);
-        } else if (action.equalsIgnoreCase("add")) {
-            Event event = new Event();
-            event.setName(request.getParameter("name"));
-            event.setType(Short.parseShort(request.getParameter("type")));
-
-            try {
-                Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
-                System.out.println("rrrrrrrrrrr"+ reg);
-                event.setDate(reg);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            //event.setDate(request.getParameter("date"));
-
-            event.setCity(request.getParameter("city"));
-            event.setLocal(request.getParameter("local"));
-
-            dao.addEvent(event);
-
-            RequestDispatcher view = request.getRequestDispatcher(LIST_EVENTS);
-            request.setAttribute("events", dao.getAllEvents());
-            view.forward(request, response);
-        }
     }
 }
