@@ -25,6 +25,15 @@
         <url-pattern>/EventController</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>rinte.controller.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

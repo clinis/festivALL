@@ -1,15 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!DOCTYPE html>
+<%@ page import="rinte.model.User" %>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>festivALL</title>
+    <title>Welcome</title>
 
     <!-- bootstrap CSS -->
     <link href="libs/css/bootstrap.css" rel="stylesheet" media="screen" />
@@ -27,10 +26,8 @@
 </head>
 <body>
     <%@ include file="nav.jsp"%>
-
-    <%--<jsp:forward page="/BandController?action=listBands" />--%>
-    <a href="BandController?action=listBands">View Bands</a> <br>
-    <a href="EventController?action=listEvents">View Events</a> <br>
-    <a href="login.jsp">Login</a>
+    <div style="text-align: center;">
+        Welcome <c:out value="${sessionScope.currentSessionUser}"/> with level <c:out value="${sessionScope.currentSessionLevel}"/>
+    </div>
 </body>
 </html>

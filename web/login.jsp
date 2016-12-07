@@ -1,15 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>festivALL</title>
+    <title>Login Page</title>
 
     <!-- bootstrap CSS -->
     <link href="libs/css/bootstrap.css" rel="stylesheet" media="screen" />
@@ -28,9 +26,15 @@
 <body>
     <%@ include file="nav.jsp"%>
 
-    <%--<jsp:forward page="/BandController?action=listBands" />--%>
-    <a href="BandController?action=listBands">View Bands</a> <br>
-    <a href="EventController?action=listEvents">View Events</a> <br>
-    <a href="login.jsp">Login</a>
+    <form method="POST" action="LoginController">
+        Please enter your username
+        <input type="text" name="un"/><br>
+
+        Please enter your password
+        <input type="text" name="pw"/>
+
+        <input type="submit" name="action" value="Login">
+    </form>
 </body>
+</html>
 </html>

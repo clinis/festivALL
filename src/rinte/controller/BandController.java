@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BandController extends HttpServlet {
     public static final String FORM_INSERT_OR_EDIT = "/band.jsp";
     public static final String LIST_BANDS = "/listbands.jsp";
+    public static final String MANAGE_BANDS = "/managebands.jsp";
     private final BandDAO dao;
 
     public BandController() {
@@ -61,7 +62,7 @@ public class BandController extends HttpServlet {
                 dao.updateBand(band);
 
                 request.setAttribute("bands", dao.getAllBands());
-                forward = LIST_BANDS;
+                forward = MANAGE_BANDS;
                 break;
 
             case "added":
@@ -73,7 +74,7 @@ public class BandController extends HttpServlet {
                 dao.addBand(band);
 
                 request.setAttribute("bands", dao.getAllBands());
-                forward = LIST_BANDS;
+                forward = MANAGE_BANDS;
                 break;
 
             case "delete":
@@ -82,12 +83,17 @@ public class BandController extends HttpServlet {
                 dao.deleteBand(bandID);
 
                 request.setAttribute("bands", dao.getAllBands());
-                forward = LIST_BANDS;
+                forward = MANAGE_BANDS;
                 break;
 
             case "insert":
                 request.setAttribute("action", "insert");
                 forward = FORM_INSERT_OR_EDIT;
+                break;
+
+            case "managebands":
+                request.setAttribute("bands", dao.getAllBands());
+                forward = MANAGE_BANDS;
                 break;
 
             default:

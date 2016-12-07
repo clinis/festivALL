@@ -34,6 +34,8 @@
                 <tr>
                     <th>Band Name</th>
                     <th>Artists</th>
+                    <th>Registration Date</th>
+                    <th colspan=2>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +43,18 @@
                 <tr>
                     <td><c:out value="${band.name}" /></td>
                     <td><c:out value="${band.artists}" /></td>
+                    <td><fmt:formatDate pattern="dd MMM,yyyy" value="${band.registeredon}" /></td>
+                    <td>
+                        <form method="POST" action="BandController" name="listEdit">
+                            <input type="hidden" name="b_id" value="${band.b_id}">
+                            <input type="submit" name="action" value="Edit" class='btn btn-info btn-xs'></input>
+                        </form>
+
+                        <form method="POST" action="BandController" name="listDelete">
+                            <input type="hidden" name="b_id" value="${band.b_id}">
+                            <input type="submit" name="action" value="Delete" class='btn btn-danger btn-xs'></input>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
