@@ -37,7 +37,6 @@ public class EventDAO {
             preparedStatement.setDate(3, new java.sql.Date(evt.getDate().getTime()));
             preparedStatement.setString(4, evt.getCity());
             preparedStatement.setString(5, evt.getLocal());
-            //preparedStatement.setDate(6, new java.sql.Date(evt.getRegisteredon().getTime()));
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

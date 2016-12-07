@@ -91,7 +91,7 @@ public class EventController extends HttpServlet {
 
                 try {
                     Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
-                    System.out.println("rrrrrrrrrrr"+ reg);
+                    System.out.println("add"+ reg);
                     event.setDate(reg);
                 } catch (ParseException e) {
                     e.printStackTrace();
