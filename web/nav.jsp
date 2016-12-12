@@ -17,36 +17,26 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="${pageContext.request.servletPath eq '/index.jsp' ? ' active' : ''}"><a href="index.jsp">Home Page</a></li>
-                <li class="${pageContext.request.servletPath eq '/listbands.jsp' ? ' active' : ''}"><a href="BandController?action=listBands">Manage Bands</a></li>
+                <li class="${pageContext.request.servletPath eq '/listbands.jsp' ? ' active' : ''}"><a href="BandController?action=listBands">List Bands</a></li>
                 <li class="${pageContext.request.servletPath eq '/band.jsp' ? ' active' : ''}"><a href="BandController?action=insert">Add Band</a></li>
-                <li class="${pageContext.request.servletPath eq '/listevents.jsp' ? ' active' : ''}"><a href="EventController?action=listEvents">Manage Events</a></li>
+                <li class="${pageContext.request.servletPath eq '/listevents.jsp' ? ' active' : ''}"><a href="EventController?action=listEvents">List Events</a></li>
                 <li class="${pageContext.request.servletPath eq '/event.jsp' ? ' active' : ''}"><a href="EventController?action=insert">Add Event</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
                     <c:when test="${empty sessionScope.currentSessionUser}">
-                        <li>
-                            <a href="signup.jsp"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
-                        </li>
-                        <li>
-                            <a href="login.jsp"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-                        </li>
+                        <li class="${pageContext.request.servletPath eq '/signup.jsp' ? ' active' : ''}"><a href="signup.jsp"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a></li>
+                        <li class="${pageContext.request.servletPath eq '/login.jsp' ? ' active' : ''}"><a href="login.jsp"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                     </c:when>
                     <c:otherwise>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <c:out value="${sessionScope.currentSessionUser}"/> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li >
-                                <a href="admin-home.php"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a>
-                                </li>
+                                <li class="${pageContext.request.servletPath eq '/userpage.jsp' ? ' active' : ''}"><a href="admin-home.php"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
                                 <c:choose>
                                     <c:when test="${sessionScope.currentSessionLevel == 1}">
-                                        <li >
-                                            <a href="BandController?action=manageBands"><i class="fa fa-database" aria-hidden="true"></i> Manage Bands</a>
-                                        </li>
-                                        <li >
-                                            <a href="EventController?action=manageEvents"><i class="fa fa-database" aria-hidden="true"></i> Manage Events</a>
-                                        </li>
+                                        <li class="${pageContext.request.servletPath eq '/managebands.jsp' ? ' active' : ''}"><a href="BandController?action=manageBands"><i class="fa fa-database" aria-hidden="true"></i> Manage Bands</a></li>
+                                        <li class="${pageContext.request.servletPath eq '/manageevents.jsp' ? ' active' : ''}"><a href="EventController?action=manageEvents"><i class="fa fa-database" aria-hidden="true"></i> Manage Events</a></li>
                                     </c:when>
                                     <c:otherwise>
                                     </c:otherwise>

@@ -44,7 +44,7 @@
         <div>
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="index.jsp">Home Page</a></li>
-                <li><a href="EventController?action=listBands">Manage Events</a></li>
+                <li><a href="EventController?action=manageEvents">Manage Events</a></li>
                 <% if (action.equalsIgnoreCase("edit")) { %>
                 <li class="active">Edit Event "${event.name}"</li>
                 <% } else { %>

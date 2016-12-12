@@ -45,7 +45,6 @@
             </c:forEach>
             </tbody>
         </table>
-        <p><a href="BandController?action=insert">Add Band</a></p>
     </div>
 </body>
 </html>

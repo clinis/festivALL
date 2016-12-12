@@ -17,6 +17,7 @@ import java.util.Date;
 public class EventController extends HttpServlet {
     private static String FORM_INSERT_OR_EDIT = "/event.jsp";
     private static String LIST_EVENTS = "/listevents.jsp";
+    private static String MANAGE_EVENTS = "/manageevents.jsp";
     private EventDAO dao;
 
     public EventController() {
@@ -110,6 +111,11 @@ public class EventController extends HttpServlet {
             case "insert":
                 request.setAttribute("action", "insert");
                 forward = FORM_INSERT_OR_EDIT;
+                break;
+
+            case "manageevents":
+                request.setAttribute("bands", dao.getAllEvents());
+                forward = MANAGE_EVENTS;
                 break;
 
             default:

@@ -29,6 +29,7 @@
     <%@ include file="nav.jsp"%>
     <div class="container">
         <h1 id='page-title'>All Bands</h1>
+        <a href="BandController?action=insert"><button class='btn btn-success btn-xs pull-right'>Add Band</button></a>
         <table class="table table-bordered table-striped myTransparent">
             <thead>
                 <tr>
@@ -59,7 +60,6 @@
             </c:forEach>
             </tbody>
         </table>
-        <p><a href="BandController?action=insert">Add Band</a></p>
     </div>
 </body>
 </html>

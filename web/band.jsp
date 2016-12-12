@@ -44,7 +44,7 @@
         <div>
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="index.jsp">Home Page</a></li>
-                <li><a href="BandController?action=listBands">Manage Bands</a></li>
+                <li><a href="BandController?action=manageBands">Manage Bands</a></li>
                 <% if (action.equalsIgnoreCase("edit")) { %>
                 <li class="active">Edit Band "${band.name}"</li>
                 <% } else { %>
