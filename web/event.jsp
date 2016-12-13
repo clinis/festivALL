@@ -34,6 +34,13 @@
     <script src="libs/js/bootstrap-formhelpers-countries.pt_BR.js"></script>
     <script src="libs/js/bootstrap-formhelpers-datepicker.js"></script>
     <script src="libs/js/bootstrap-formhelpers-datepicker.pt_BR.js"></script>
+    <!--- bootstrap-select --->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-*.min.js"></script>
 </head>
 <body>
     <%@ include file="nav.jsp"%>
@@ -78,6 +85,34 @@
                 <tr>
                     <td>Local</td>
                     <td><input type="text" name="local" value="<c:out value="${event.local}" />" class="form-control"/></td>
+                </tr>
+
+                <tr>
+                    <td>Bands</td>
+                    <td>
+                        <% if (action.equalsIgnoreCase("edit")) { %>
+                        <select name="eventBands" class="selectpicker" multiple="multiple">
+                            <c:forEach items="${bands}" var="band">
+                                <option value="<c:out value="${band.name}" />"
+                                    <c:forEach items="${event.event_bands}" var="bandx">
+                                        ${band.name == bandx ? 'selected' : ''}
+                                    </c:forEach>
+                                ><c:out value="${band.name}" /></option>
+
+                                <%--${if(var != null)var}--%>
+                            </c:forEach>
+                            <%--<c:forEach items="${event.event_bands}" var="bandx">
+                                <script>('.eventBands').selectpicker('value', [' <c:out value="${bandx}" />' ]);</script>
+                            </c:forEach>--%>
+                        </select>
+                        <% } else { %>
+                        <select name="eventBands" class="selectpicker" multiple="multiple">
+                            <c:forEach items="${bands}" var="band">
+                                <option value="<c:out value="${band.b_id}" />"><c:out value="${band.name}" /></option>
+                            </c:forEach>
+                        </select>
+                        <% } %>
+                    </td>
                 </tr>
 
                 <tr>

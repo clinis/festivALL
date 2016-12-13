@@ -10,6 +10,8 @@ public class Event {
         private String city = null;
         private String local = null;
         private Date registeredon = null;
+        private String[] event_bands;
+
 
     public int getE_id() {
         return e_id;
@@ -67,5 +69,11 @@ public class Event {
         this.registeredon = registeredon;
     }
 
+    public String[] getEvent_bands() {
+        return event_bands;
+    }
 
+    public void setEvent_bands(String[] event_bands) {
+        this.event_bands = event_bands;
+    }
 }

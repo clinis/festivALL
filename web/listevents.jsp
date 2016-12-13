@@ -37,6 +37,7 @@
                 <th>Date</th>
                 <th>City</th>
                 <th>Local</th>
+                <th>Bands</th>
             </tr>
             </thead>
             <tbody>
@@ -59,6 +60,13 @@
                     <td><fmt:formatDate pattern="dd MMM,yyyy" value="${event.date}" /></td>
                     <td><c:out value="${event.city}" /></td>
                     <td><c:out value="${event.local}" /></td>
+                    <td>
+                        <ul>
+                            <c:forEach items="${event.event_bands}" var="band">
+                                <li><c:out value="${band}" /></li>
+                            </c:forEach>
+                        </ul>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

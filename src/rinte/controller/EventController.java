@@ -1,5 +1,6 @@
 package rinte.controller;
 
+import rinte.dao.BandDAO;
 import rinte.dao.EventDAO;
 import rinte.model.Event;
 
@@ -19,10 +20,12 @@ public class EventController extends HttpServlet {
     private static String LIST_EVENTS = "/listevents.jsp";
     private static String MANAGE_EVENTS = "/manageevents.jsp";
     private EventDAO dao;
+    private BandDAO daoB;
 
     public EventController() {
         super();
         dao = new EventDAO();
+        daoB = new BandDAO();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,6 +63,7 @@ public class EventController extends HttpServlet {
                 eventID = Integer.parseInt(request.getParameter("e_id"));
                 event = dao.getEventByID(eventID);
 
+                request.setAttribute("bands", daoB.getAllBands());
                 request.setAttribute("event", event);
                 request.setAttribute("action", "edit");
                 break;
@@ -78,6 +82,10 @@ public class EventController extends HttpServlet {
                 }
                 event.setCity(request.getParameter("city"));
                 event.setLocal(request.getParameter("local"));
+
+                for (String be : request.getParameterValues("eventBands") ) {
+                    System.out.println(be);
+                }
 
                 dao.updateEvent(event);
 
@@ -102,6 +110,12 @@ public class EventController extends HttpServlet {
                 event.setCity(request.getParameter("city"));
                 event.setLocal(request.getParameter("local"));
 
+                String[] b = request.getParameterValues("eventBands");
+                for ( String be : b ) {
+                    System.out.println(be);
+                }
+                event.setEvent_bands(b);
+
                 dao.addEvent(event);
 
                 request.setAttribute("events", dao.getAllEvents());
@@ -110,6 +124,7 @@ public class EventController extends HttpServlet {
 
             case "insert":
                 request.setAttribute("action", "insert");
+                request.setAttribute("bands", daoB.getAllBands());
                 forward = FORM_INSERT_OR_EDIT;
                 break;
 
