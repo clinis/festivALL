@@ -38,7 +38,7 @@ public class UserDAO {
     public boolean login(User usr) {
         boolean r = false;
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM users2 WHERE username = ? AND password = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
             ps.setString(1, usr.getUsername());
             ps.setString(2, usr.getPassword());
             ResultSet rs = ps.executeQuery();
@@ -58,14 +58,14 @@ public class UserDAO {
     public User getUserByUsername(String uname){
         User user = new User();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM users2 WHERE username=?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username=?");
             ps.setString(1, uname);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 user.setU_id(rs.getInt("u_id"));
                 user.setUsername(rs.getString("username"));
-                user.setLevel(rs.getShort("level"));
+                user.setIsadmin(rs.getShort("isadmin"));
                 user.setRegisteredon(rs.getDate("registeredon"));
             }
         } catch (SQLException e) {

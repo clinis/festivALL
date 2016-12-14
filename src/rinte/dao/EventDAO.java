@@ -33,12 +33,12 @@ public class EventDAO {
 
     public void addEvent(Event evt) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO events(type, name, date, city, local) VALUES(?, ?, ?, ?, ? )");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO events(type, name, date, city, place) VALUES(?, ?, ?, ?, ? )");
             preparedStatement.setShort(1, evt.getType());
             preparedStatement.setString(2, evt.getName());
             preparedStatement.setDate(3, new java.sql.Date(evt.getDate().getTime()));
             preparedStatement.setString(4, evt.getCity());
-            preparedStatement.setString(5, evt.getLocal());
+            preparedStatement.setString(5, evt.getPlace());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -58,12 +58,12 @@ public class EventDAO {
 
     public void updateEvent(Event evt) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE events SET type=?, name=?, date=?, city=?, local=? WHERE e_id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE events SET type=?, name=?, date=?, city=?, place=? WHERE e_id=?");
             preparedStatement.setShort(1, evt.getType());
             preparedStatement.setString(2, evt.getName());
             preparedStatement.setDate(3, new java.sql.Date(evt.getDate().getTime()));
             preparedStatement.setString(4, evt.getCity());
-            preparedStatement.setString(5, evt.getLocal());
+            preparedStatement.setString(5, evt.getPlace());
             preparedStatement.setInt(6, evt.getE_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -106,7 +106,7 @@ public class EventDAO {
                 event.setName(rs.getString("name"));
                 event.setDate(rs.getDate("date"));
                 event.setCity(rs.getString("city"));
-                event.setLocal(rs.getString("local"));
+                event.setPlace(rs.getString("place"));
                 event.setRegisteredon(rs.getDate("registeredon"));
 
                 event.setEvent_bands(getBandsInEvent(rs.getInt("e_id")));
@@ -133,7 +133,7 @@ public class EventDAO {
                 event.setName(rs.getString("name"));
                 event.setDate(rs.getDate("date"));
                 event.setCity(rs.getString("city"));
-                event.setLocal(rs.getString("local"));
+                event.setPlace(rs.getString("place"));
                 event.setRegisteredon(rs.getDate("registeredon"));
 
                 event.setEvent_bands(getBandsInEvent(rs.getInt("e_id")));

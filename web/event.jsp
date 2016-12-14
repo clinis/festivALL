@@ -76,7 +76,7 @@
                     </tr>
                     <tr>
                         <td>Local</td>
-                        <td><input type="text" name="local" value="<c:out value="${event.local}" />" class="form-control"/></td>
+                        <td><input type="text" name="place" value="<c:out value="${event.place}" />" class="form-control"/></td>
                     </tr>
                     <tr>
                         <td></td>

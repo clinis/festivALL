@@ -37,7 +37,7 @@
             <th>Type</th>
             <th>Date</th>
             <th>City</th>
-            <th>Local</th>
+            <th>Place</th>
             <th>Registered on</th>
             <th colspan=2>Action</th>
         </tr>
@@ -61,7 +61,7 @@
                 </td>
                 <td><fmt:formatDate pattern="dd MMMMM yyyy" value="${event.date}" /></td>
                 <td><c:out value="${event.city}" /></td>
-                <td><c:out value="${event.local}" /></td>
+                <td><c:out value="${event.place}" /></td>
                 <td><fmt:formatDate pattern="dd/MM/yyyy" value="${event.registeredon}" /></td>
                 <td>
                     <form method="POST" action="EventController" name="listEdit">

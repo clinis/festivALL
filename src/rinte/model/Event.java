@@ -9,7 +9,7 @@ public class Event {
         private String name = null;
         private Date date = null;
         private String city = null;
-        private String local = null;
+        private String place = null;
         private Date registeredon = null;
         private List<Band> event_bands;
 
@@ -54,12 +54,12 @@ public class Event {
         this.city = city;
     }
 
-    public String getLocal() {
-        return local;
+    public String getPlace() {
+        return place;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public Date getRegisteredon() {

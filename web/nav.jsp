@@ -34,7 +34,7 @@
                             <ul class="dropdown-menu">
                                 <li class="${pageContext.request.servletPath eq '/userpage.jsp' ? ' active' : ''}"><a href="admin-home.php"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
                                 <c:choose>
-                                    <c:when test="${sessionScope.currentSessionLevel == 1}">
+                                    <c:when test="${sessionScope.currentSessionIsadmin == 1}">
                                         <li class="${pageContext.request.servletPath eq '/managebands.jsp' ? ' active' : ''}"><a href="BandController?action=manageBands"><i class="fa fa-database" aria-hidden="true"></i> Manage Bands</a></li>
                                         <li class="${pageContext.request.servletPath eq '/manageevents.jsp' ? ' active' : ''}"><a href="EventController?action=manageEvents"><i class="fa fa-database" aria-hidden="true"></i> Manage Events</a></li>
                                     </c:when>

@@ -27,7 +27,7 @@
 <body>
     <%@ include file="nav.jsp"%>
     <div style="text-align: center;">
-        Welcome <c:out value="${sessionScope.currentSessionUser}"/> with level <c:out value="${sessionScope.currentSessionLevel}"/>
+        Welcome <c:out value="${sessionScope.currentSessionUser}"/> with level <c:out value="${sessionScope.currentSessionIsadmin}"/>
     </div>
 </body>
 </html>

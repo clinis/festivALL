@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
                         user = dao.getUserByUsername(user.getUsername());
                         HttpSession session = request.getSession(true);
                         session.setAttribute("currentSessionUser", user.getUsername());
-                        session.setAttribute("currentSessionLevel", user.getLevel());
+                        session.setAttribute("currentSessionIsadmin", user.getIsadmin());
                         response.sendRedirect("userLogged.jsp"); //logged-in page
                     } else {
                         response.sendRedirect("index.jsp"); //error page

@@ -6,7 +6,7 @@ public class User {
         private int u_id = -1;
         private String username = null;
         private String password = null;
-        private short level = -1;
+        private short isadmin = -1;
         private Date registeredon = null;
 
         public boolean valid;
@@ -35,12 +35,12 @@ public class User {
         this.password = password;
     }
 
-    public short getLevel() {
-        return level;
+    public short getIsadmin() {
+        return isadmin;
     }
 
-    public void setLevel(short level) {
-        this.level = level;
+    public void setIsadmin(short isadmin) {
+        this.isadmin = isadmin;
     }
 
     public Date getRegisteredon() {

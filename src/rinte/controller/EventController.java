@@ -83,7 +83,7 @@ public class EventController extends HttpServlet {
                     e.printStackTrace();
                 }
                 event.setCity(request.getParameter("city"));
-                event.setLocal(request.getParameter("local"));
+                event.setPlace(request.getParameter("place"));
 
                 dao.updateEvent(event);
 
@@ -138,7 +138,7 @@ public class EventController extends HttpServlet {
                 }
 
                 event.setCity(request.getParameter("city"));
-                event.setLocal(request.getParameter("local"));
+                event.setPlace(request.getParameter("place"));
 
                 dao.addEvent(event);
 
