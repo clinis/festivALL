@@ -44,7 +44,7 @@
                 <tr>
                     <td><c:out value="${band.name}" /></td>
                     <td><c:out value="${band.artists}" /></td>
-                    <td><fmt:formatDate pattern="dd MMM,yyyy" value="${band.registeredon}" /></td>
+                    <td><fmt:formatDate pattern="dd/MM/yyyy" value="${band.registeredon}" /></td>
                     <td>
                         <form method="POST" action="BandController" name="listEdit">
                             <input type="hidden" name="b_id" value="${band.b_id}">

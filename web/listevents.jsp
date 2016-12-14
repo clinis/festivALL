@@ -57,7 +57,7 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td><fmt:formatDate pattern="dd MMM,yyyy" value="${event.date}" /></td>
+                    <td><fmt:formatDate pattern="dd MMMMM yyyy" value="${event.date}" /></td>
                     <td><c:out value="${event.city}" /></td>
                     <td><c:out value="${event.local}" /></td>
                     <td>
