@@ -12,21 +12,31 @@
     <title>Bands List</title>
 
     <!-- bootstrap CSS -->
-    <link href="libs/css/bootstrap.css" rel="stylesheet" media="screen" />
+    <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
+    <style>
+        .myTransparentBreadcrumb {
+            background-color: rgba(255,255,255, 0.3);
+        }
+        .myTransparentBreadcrumb > li + li:before {
+            color: rgb(2,2,2);
+        }
+    </style>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="libs/js/jquery.js"></script>
+    <script src="<c:url value="/libs/js/jquery.js" />"></script>
     <!-- bootstrap JavaScript -->
-    <script src="libs/js/bootstrap.js"></script>
+    <script src="<c:url value="/libs/js/bootstrap.js" />"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="libs/fonts/font-awesome-4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<c:url value="/libs/fonts/font-awesome-4.6.1/css/font-awesome.min.css" />">
     <!-- Bootstrap Form Helpers -->
-    <link href="libs/css/bootstrap-formhelpers.css" rel="stylesheet" media="screen" />
-    <script src="libs/js/bootstrap-formhelpers.js"></script>
-    <script src="libs/js/bootstrap-formhelpers-countries.js"></script>
-    <script src="libs/js/bootstrap-formhelpers-countries.pt_BR.js"></script>
+    <link href="<c:url value="/libs/css/bootstrap-formhelpers.css" />" rel="stylesheet" media="screen" />
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.pt_BR.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-datepicker.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-datepicker.pt_BR.js" />"></script>
 </head>
 <body>
-    <%@ include file="nav.jsp"%>
+    <%@ include file="../../nav.jsp"%>
     <div class="container">
         <h1 id='page-title'>All Bands</h1>
         <a href="BandController?action=insert"><button class='btn btn-success btn-xs pull-right'>Add Band</button></a>

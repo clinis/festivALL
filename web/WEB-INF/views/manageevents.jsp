@@ -13,6 +13,14 @@
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
+    <style>
+        .myTransparentBreadcrumb {
+            background-color: rgba(255,255,255, 0.3);
+        }
+        .myTransparentBreadcrumb > li + li:before {
+            color: rgb(2,2,2);
+        }
+    </style>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="<c:url value="/libs/js/jquery.js" />"></script>
     <!-- bootstrap JavaScript -->
@@ -24,11 +32,14 @@
     <script src="<c:url value="/libs/js/bootstrap-formhelpers.js" />"></script>
     <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.js" />"></script>
     <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.pt_BR.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-datepicker.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-datepicker.pt_BR.js" />"></script>
 </head>
 <body>
-    <%@ include file="nav.jsp"%>
+    <%@ include file="../../nav.jsp"%>
     <div class="container">
         <h1 id='page-title'>All Events</h1>
+        <a href="EventController?action=insert"><button class='btn btn-success btn-xs pull-right'>Add Event</button></a>
         <table class="table table-bordered table-striped myTransparent">
             <thead>
             <tr>
@@ -37,7 +48,8 @@
                 <th>Date</th>
                 <th>City</th>
                 <th>Place</th>
-                <th>Bands</th>
+                <th>Registered on</th>
+                <th colspan=2>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -60,12 +72,17 @@
                     <td><fmt:formatDate pattern="dd MMMMM yyyy" value="${event.date}" /></td>
                     <td><c:out value="${event.city}" /></td>
                     <td><c:out value="${event.place}" /></td>
+                    <td><fmt:formatDate pattern="dd/MM/yyyy" value="${event.registeredon}" /></td>
                     <td>
-                        <ul>
-                            <c:forEach items="${event.event_bands}" var="band">
-                                <li><c:out value="${band.name}" /></li>
-                            </c:forEach>
-                        </ul>
+                        <form method="POST" action="EventController" name="listEdit">
+                            <input type="hidden" name="e_id" value="${event.e_id}">
+                            <input type="submit" name="action" value="Edit" class='btn btn-info btn-xs'></input>
+                        </form>
+
+                        <form method="POST" action="EventController" name="listDelete">
+                            <input type="hidden" name="e_id" value="${event.e_id}">
+                            <input type="submit" name="action" value="Delete" class='btn btn-danger btn-xs'></input>
+                        </form>
                     </td>
                 </tr>
             </c:forEach>

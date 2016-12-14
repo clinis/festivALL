@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class BandController extends HttpServlet {
-    public static final String FORM_INSERT_OR_EDIT = "/band.jsp";
+    public static final String FORM_INSERT_OR_EDIT = "/WEB-INF/views/band.jsp";
     public static final String LIST_BANDS = "/listbands.jsp";
-    public static final String MANAGE_BANDS = "/managebands.jsp";
+    public static final String MANAGE_BANDS = "/WEB-INF/views/managebands.jsp";
     private final BandDAO dao;
 
     public BandController() {

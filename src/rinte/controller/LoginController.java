@@ -4,6 +4,7 @@ import rinte.dao.UserDAO;
 import rinte.model.User;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +45,9 @@ public class LoginController extends HttpServlet {
                         HttpSession session = request.getSession(true);
                         session.setAttribute("currentSessionUser", user.getUsername());
                         session.setAttribute("currentSessionIsadmin", user.getIsadmin());
-                        response.sendRedirect("userLogged.jsp"); //logged-in page
+
+                        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/userLogged.jsp");
+                        view.forward(request, response);
                     } else {
                         response.sendRedirect("index.jsp"); //error page
                     }

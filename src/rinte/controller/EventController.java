@@ -16,9 +16,9 @@ import java.util.Date;
 
 
 public class EventController extends HttpServlet {
-    private static String FORM_INSERT_OR_EDIT = "/event.jsp";
+    private static String FORM_INSERT_OR_EDIT = "/WEB-INF/views/event.jsp";
     private static String LIST_EVENTS = "/listevents.jsp";
-    private static String MANAGE_EVENTS = "/manageevents.jsp";
+    private static String MANAGE_EVENTS = "/WEB-INF/views/manageevents.jsp";
     private EventDAO dao;
     private BandDAO daoB;
 

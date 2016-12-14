@@ -1,3 +1,10 @@
+<%--${pageContext.request.servletPath}
+<br>
+${pageContext.request.requestURI}
+<br>
+${pageContext.request.requestURL}
+<br>
+${requestScope['javax.servlet.forward.request_uri']}--%>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -18,9 +25,9 @@
             <ul class="nav navbar-nav">
                 <li class="${pageContext.request.servletPath eq '/index.jsp' ? ' active' : ''}"><a href="index.jsp">Home Page</a></li>
                 <li class="${pageContext.request.servletPath eq '/listbands.jsp' ? ' active' : ''}"><a href="BandController?action=listBands">List Bands</a></li>
-                <li class="${pageContext.request.servletPath eq '/band.jsp' ? ' active' : ''}"><a href="BandController?action=insert">Add Band</a></li>
+                <li class="${pageContext.request.servletPath eq '/WEB-INF/views/band.jsp' ? ' active' : ''}"><a href="BandController?action=insert">Add Band</a></li>
                 <li class="${pageContext.request.servletPath eq '/listevents.jsp' ? ' active' : ''}"><a href="EventController?action=listEvents">List Events</a></li>
-                <li class="${pageContext.request.servletPath eq '/event.jsp' ? ' active' : ''}"><a href="EventController?action=insert">Add Event</a></li>
+                <li class="${pageContext.request.servletPath eq '/WEB-INF/views/event.jsp' ? ' active' : ''}"><a href="EventController?action=insert">Add Event</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
@@ -35,8 +42,8 @@
                                 <li class="${pageContext.request.servletPath eq '/userpage.jsp' ? ' active' : ''}"><a href="admin-home.php"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
                                 <c:choose>
                                     <c:when test="${sessionScope.currentSessionIsadmin == 1}">
-                                        <li class="${pageContext.request.servletPath eq '/managebands.jsp' ? ' active' : ''}"><a href="BandController?action=manageBands"><i class="fa fa-database" aria-hidden="true"></i> Manage Bands</a></li>
-                                        <li class="${pageContext.request.servletPath eq '/manageevents.jsp' ? ' active' : ''}"><a href="EventController?action=manageEvents"><i class="fa fa-database" aria-hidden="true"></i> Manage Events</a></li>
+                                        <li class="${pageContext.request.servletPath eq '/WEB-INF/views/managebands.jsp' ? ' active' : ''}"><a href="BandController?action=manageBands"><i class="fa fa-database" aria-hidden="true"></i> Manage Bands</a></li>
+                                        <li class="${pageContext.request.servletPath eq '/WEB-INF/views/manageevents.jsp' ? ' active' : ''}"><a href="EventController?action=manageEvents"><i class="fa fa-database" aria-hidden="true"></i> Manage Events</a></li>
                                     </c:when>
                                     <c:otherwise>
                                     </c:otherwise>
