@@ -1,6 +1,7 @@
 package rinte.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Event {
         private int e_id = -1;
@@ -10,7 +11,7 @@ public class Event {
         private String city = null;
         private String local = null;
         private Date registeredon = null;
-        private String[] event_bands;
+        private List<Band> event_bands;
 
 
     public int getE_id() {
@@ -69,11 +70,11 @@ public class Event {
         this.registeredon = registeredon;
     }
 
-    public String[] getEvent_bands() {
+    public List<Band> getEvent_bands() {
         return event_bands;
     }
 
-    public void setEvent_bands(String[] event_bands) {
+    public void setEvent_bands(List<Band> event_bands) {
         this.event_bands = event_bands;
     }
 }

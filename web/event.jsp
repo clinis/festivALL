@@ -34,13 +34,6 @@
     <script src="libs/js/bootstrap-formhelpers-countries.pt_BR.js"></script>
     <script src="libs/js/bootstrap-formhelpers-datepicker.js"></script>
     <script src="libs/js/bootstrap-formhelpers-datepicker.pt_BR.js"></script>
-    <!--- bootstrap-select --->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-*.min.js"></script>
 </head>
 <body>
     <%@ include file="nav.jsp"%>
@@ -48,7 +41,7 @@
         System.out.println(action);
     %>
     <div class="container">
-        <div>
+        <div class="row">
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="index.jsp">Home Page</a></li>
                 <li><a href="EventController?action=manageEvents">Manage Events</a></li>

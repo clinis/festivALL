@@ -50,7 +50,6 @@
                 <% } else { %>
                 <li class="active">Add New Band</li>
                 <% } %>
-
             </ol>
         </div>
         <form method="POST" action='BandController' name="frmAddBand">

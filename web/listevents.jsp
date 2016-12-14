@@ -63,7 +63,7 @@
                     <td>
                         <ul>
                             <c:forEach items="${event.event_bands}" var="band">
-                                <li><c:out value="${band}" /></li>
+                                <li><c:out value="${band.name}" /></li>
                             </c:forEach>
                         </ul>
                     </td>

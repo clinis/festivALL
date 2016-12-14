@@ -109,14 +109,7 @@ public class EventDAO {
                 event.setLocal(rs.getString("local"));
                 event.setRegisteredon(rs.getDate("registeredon"));
 
-                List resultListEventBands = new ArrayList();
-                PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM bands INNER JOIN events_bands ON events_bands.b_id=bands.b_id AND events_bands.e_id=? ");
-                ps2.setInt(1, event.getE_id());
-                ResultSet rs2 = ps2.executeQuery();
-                while (rs2.next()) {
-                    resultListEventBands.add(rs2.getString("name"));
-                }
-                event.setEvent_bands((String[]) resultListEventBands.toArray(new String[resultListEventBands.size()]));
+                event.setEvent_bands(getBandsInEvent(rs.getInt("e_id")));
 
                 events.add(event);
             }
@@ -143,14 +136,7 @@ public class EventDAO {
                 event.setLocal(rs.getString("local"));
                 event.setRegisteredon(rs.getDate("registeredon"));
 
-                List resultListEventBands = new ArrayList();
-                PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM bands INNER JOIN events_bands ON events_bands.b_id=bands.b_id AND events_bands.e_id=? ");
-                ps2.setInt(1, eventID);
-                ResultSet rs2 = ps2.executeQuery();
-                while (rs2.next()) {
-                    resultListEventBands.add(rs2.getString("name"));
-                }
-                event.setEvent_bands((String[]) resultListEventBands.toArray(new String[resultListEventBands.size()]));
+                event.setEvent_bands(getBandsInEvent(rs.getInt("e_id")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
