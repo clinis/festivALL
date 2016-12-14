@@ -13,6 +13,14 @@
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
+    <style>
+        .myTransparentBreadcrumb {
+            background-color: rgba(255,255,255, 0.3);
+        }
+        .myTransparentBreadcrumb > li + li:before {
+            color: rgb(2,2,2);
+        }
+    </style>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="<c:url value="/libs/js/jquery.js" />"></script>
     <!-- bootstrap JavaScript -->
@@ -24,9 +32,11 @@
     <script src="<c:url value="/libs/js/bootstrap-formhelpers.js" />"></script>
     <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.js" />"></script>
     <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.pt_BR.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-datepicker.js" />"></script>
+    <script src="<c:url value="/libs/js/bootstrap-formhelpers-datepicker.pt_BR.js" />"></script>
 </head>
 <body>
-    <%@ include file="nav.jsp"%>
+    <%@ include file="../../nav.jsp"%>
     <div class="container">
         <h1 id='page-title'>All Events</h1>
         <table class="table table-bordered table-striped myTransparent">
