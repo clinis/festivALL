@@ -1,5 +1,6 @@
 package rinte.dao;
 
+import rinte.model.Band;
 import rinte.model.Event;
 import rinte.util.Database;
 
@@ -43,27 +44,6 @@ public class EventDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        try {
-            int eid = -1;
-            PreparedStatement preparedStatement1 = connection.prepareStatement("SELECT MAX(e_id) FROM events");
-            ResultSet rs = preparedStatement1.executeQuery();
-            if (rs.next()) {
-                eid = rs.getInt(1);
-                System.out.println("max id events: "+eid);
-            }
-
-            String[] b = evt.getEvent_bands();
-            for ( String be : b ) {
-                System.out.println("sql event id ("+eid+") and band id "+be);
-                PreparedStatement preparedStatement2 = connection.prepareStatement("INSERT INTO events_bands(e_id, b_id) VALUES(?, ?)");
-                preparedStatement2.setInt(1, eid);
-                preparedStatement2.setInt(2, Integer.parseInt(be));
-                preparedStatement2.execute();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void deleteEvent(int eventID) {
@@ -71,7 +51,6 @@ public class EventDAO {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE events SET isdeleted=1 WHERE e_id=?");
             preparedStatement.setInt(1, eventID);
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,6 +66,28 @@ public class EventDAO {
             preparedStatement.setString(5, evt.getLocal());
             preparedStatement.setInt(6, evt.getE_id());
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addEventBand(int eventID, int bandID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO events_bands(e_id, b_id) VALUES(?, ?)");
+            ps.setInt(1, eventID);
+            ps.setInt(2, bandID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeEventBand(int eventID, int bandID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM events_bands WHERE e_id=? AND b_id=?");
+            ps.setInt(1, eventID);
+            ps.setInt(2, bandID);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -154,7 +155,50 @@ public class EventDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return event;
+    }
+
+    public List<Band> getBandsInEvent(int eventID) {
+        List<Band> bandsInEvent = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id FROM bands WHERE EXISTS ( SELECT * FROM events_bands WHERE bands.b_id = events_bands.b_id AND events_bands.e_id = ? ) AND bands.isdeleted = 0");
+            ps.setInt(1, eventID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Band band = new Band();
+
+                band.setB_id(rs.getInt("b_id"));
+                band.setName(rs.getString("name"));
+
+                bandsInEvent.add(band);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bandsInEvent;
+    }
+
+    public List<Band> getBandsNotInEvent(int eventID) {
+        List<Band> bandsNotInEvent = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM events_bands WHERE bands.b_id = events_bands.b_id AND events_bands.e_id = ? ) AND bands.isdeleted = 0");
+            ps.setInt(1, eventID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Band band = new Band();
+
+                band.setB_id(rs.getInt("b_id"));
+                band.setName(rs.getString("name"));
+
+                bandsNotInEvent.add(band);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bandsNotInEvent;
     }
 }

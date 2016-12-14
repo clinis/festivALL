@@ -46,6 +46,7 @@ public class EventController extends HttpServlet {
         String forward = LIST_EVENTS;
 
         int eventID;
+        int bandID;
         Event event;
 
         switch (action.toLowerCase()){
@@ -63,9 +64,10 @@ public class EventController extends HttpServlet {
                 eventID = Integer.parseInt(request.getParameter("e_id"));
                 event = dao.getEventByID(eventID);
 
-                request.setAttribute("bands", daoB.getAllBands());
-                request.setAttribute("event", event);
                 request.setAttribute("action", "edit");
+                request.setAttribute("event", event);
+                request.setAttribute("eventB", dao.getBandsInEvent(eventID));
+                request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
                 break;
 
             case "edited":
@@ -83,14 +85,43 @@ public class EventController extends HttpServlet {
                 event.setCity(request.getParameter("city"));
                 event.setLocal(request.getParameter("local"));
 
-                for (String be : request.getParameterValues("eventBands") ) {
-                    System.out.println(be);
-                }
-
                 dao.updateEvent(event);
 
                 request.setAttribute("events", dao.getAllEvents());
                 forward = LIST_EVENTS;
+                break;
+
+            case "addeventband":
+                eventID = Integer.parseInt(request.getParameter("e_id"));
+                bandID = Integer.parseInt(request.getParameter("eventNotBands"));
+
+                dao.addEventBand(eventID, bandID);
+
+                event = dao.getEventByID(eventID);
+                request.setAttribute("event", event);
+
+                request.setAttribute("eventB", dao.getBandsInEvent(eventID));
+                request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
+
+                request.setAttribute("action","");
+                request.setAttribute("action", "edit");
+                forward = FORM_INSERT_OR_EDIT;
+                break;
+
+            case "removeeventband":
+                eventID = Integer.parseInt(request.getParameter("e_id"));
+                bandID = Integer.parseInt(request.getParameter("b_id"));
+
+                dao.removeEventBand(eventID, bandID);
+
+                event = dao.getEventByID(eventID);
+                request.setAttribute("event", event);
+
+                request.setAttribute("eventB", dao.getBandsInEvent(eventID));
+                request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
+
+                request.setAttribute("action", "edit");
+                forward = FORM_INSERT_OR_EDIT;
                 break;
 
             case "added":
@@ -105,16 +136,9 @@ public class EventController extends HttpServlet {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                //event.setDate(request.getParameter("date"));
 
                 event.setCity(request.getParameter("city"));
                 event.setLocal(request.getParameter("local"));
-
-                String[] b = request.getParameterValues("eventBands");
-                for ( String be : b ) {
-                    System.out.println(be);
-                }
-                event.setEvent_bands(b);
 
                 dao.addEvent(event);
 
