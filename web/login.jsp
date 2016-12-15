@@ -26,15 +26,32 @@
 <body>
     <%@ include file="nav.jsp"%>
 
-    <form method="POST" action="LoginController">
-        Please enter your username
-        <input type="text" name="un"/><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <form method="POST" action="LoginController" class="form-signin">
+                    <h2 class="form-signin-heading">Who's there?</h2>
 
-        Please enter your password
-        <input type="text" name="pw"/>
+                    <div class="form-group">
+                        <label for="un">Username</label>
+                        <input type="text" id="un" name="un" class="form-control" required autofocus/>
+                    </div>
 
-        <input type="submit" name="action" value="Login">
-    </form>
+                    <div class="form-group">
+                        <label for="pw">Password</label>
+                        <input type="password" id="pw" name="pw" class="form-control" required/>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="action" value="Login">Sign in</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 text-center">
+                <a href="signup.jsp">Create account</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 </html>

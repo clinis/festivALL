@@ -4,6 +4,9 @@ import rinte.dao.UserDAO;
 import rinte.model.User;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +36,8 @@ public class LoginController extends HttpServlet {
         String action = request.getParameter("action");
         System.out.println("Controller action: " + action);
 
+        HttpSession session = request.getSession(true);
+
         switch (action.toLowerCase()) {
             case "login":
                 try {
@@ -42,7 +47,6 @@ public class LoginController extends HttpServlet {
 
                     if (dao.login(user) == true) {
                         user = dao.getUserByUsername(user.getUsername());
-                        HttpSession session = request.getSession(true);
                         session.setAttribute("currentSessionUser", user.getUsername());
                         session.setAttribute("currentSessionIsadmin", user.getIsadmin());
 
@@ -66,9 +70,33 @@ public class LoginController extends HttpServlet {
                 break;
 
             case "logout":
-                HttpSession session = request.getSession();
                 session.invalidate();
                 response.sendRedirect("index.jsp"); //error page
+                break;
+
+            case "signup":
+                int uID;
+                User user = new User();
+                user.setUsername(request.getParameter("username"));
+                user.setPassword(request.getParameter("password"));
+                user.setName(request.getParameter("name"));
+                try {
+                    Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("birthdate"));
+                    System.out.println("bday:"+d);
+                    user.setBirthdate(d);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                user.setCity(request.getParameter("city"));
+
+                uID = dao.createUser(user);
+
+                user = dao.getUserByID(uID);
+                session.setAttribute("currentSessionUser", user.getUsername());
+                session.setAttribute("currentSessionIsadmin", user.getIsadmin());
+
+                RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/userLogged.jsp");
+                view.forward(request, response);
                 break;
         }
     }

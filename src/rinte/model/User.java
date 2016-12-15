@@ -7,6 +7,9 @@ public class User {
         private String username = null;
         private String password = null;
         private short isadmin = -1;
+        private String name = null;
+        private Date birthdate = null;
+        private String city = null;
         private Date registeredon = null;
 
         public boolean valid;
@@ -41,6 +44,30 @@ public class User {
 
     public void setIsadmin(short isadmin) {
         this.isadmin = isadmin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Date getRegisteredon() {
