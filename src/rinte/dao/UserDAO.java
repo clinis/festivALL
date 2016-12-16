@@ -41,8 +41,8 @@ public class UserDAO {
         return uID;
     }
 
-    public boolean login(User usr) {
-        boolean r = false;
+    public int login(User usr) {
+        int uID = -1;
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
             ps.setString(1, usr.getUsername());
@@ -50,15 +50,14 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) { // found
                 System.out.println("Welcome "+ usr.getUsername());
-                r = true;
+                uID = rs.getInt("u_id");
             } else {
                 System.out.println("Sorry, you are not a registered user! Please sign up first");
-                r = false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return r;
+        return uID;
     }
 
     public User getUserByID(int uID){

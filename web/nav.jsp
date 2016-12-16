@@ -37,11 +37,11 @@ ${requestScope['javax.servlet.forward.request_uri']}--%>
                     </c:when>
                     <c:otherwise>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <c:out value="${sessionScope.currentSessionUser}"/> <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <c:out value="${sessionScope.currentSessionUser.name}"/> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li class="${pageContext.request.servletPath eq '/WEB-INF/views/userpage.jsp' ? ' active' : ''}"><a href="admin-home.php"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
+                                <li class="${pageContext.request.servletPath eq '/WEB-INF/views/userArea.jsp' ? ' active' : ''}"><a href="UserController?action=userArea"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a></li>
                                 <c:choose>
-                                    <c:when test="${sessionScope.currentSessionIsadmin == 1}">
+                                    <c:when test="${sessionScope.currentSessionUser.isadmin == 1}">
                                         <li class="${pageContext.request.servletPath eq '/WEB-INF/views/managebands.jsp' ? ' active' : ''}"><a href="BandController?action=manageBands"><i class="fa fa-database" aria-hidden="true"></i> Manage Bands</a></li>
                                         <li class="${pageContext.request.servletPath eq '/WEB-INF/views/manageevents.jsp' ? ' active' : ''}"><a href="EventController?action=manageEvents"><i class="fa fa-database" aria-hidden="true"></i> Manage Events</a></li>
                                     </c:when>

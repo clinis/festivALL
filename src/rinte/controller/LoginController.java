@@ -37,6 +37,7 @@ public class LoginController extends HttpServlet {
         System.out.println("Controller action: " + action);
 
         HttpSession session = request.getSession(true);
+        RequestDispatcher view;
 
         switch (action.toLowerCase()) {
             case "login":
@@ -45,25 +46,16 @@ public class LoginController extends HttpServlet {
                     user.setUsername(request.getParameter("un"));
                     user.setPassword(request.getParameter("pw"));
 
-                    if (dao.login(user) == true) {
-                        user = dao.getUserByUsername(user.getUsername());
-                        session.setAttribute("currentSessionUser", user.getUsername());
-                        session.setAttribute("currentSessionIsadmin", user.getIsadmin());
+                    int uID = dao.login(user);
+                    if (uID > 0) {
+                        user = dao.getUserByID(uID);
+                        session.setAttribute("currentSessionUser", user);
 
-                        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/userLogged.jsp");
+                        view = request.getRequestDispatcher("/WEB-INF/views/userArea.jsp");
                         view.forward(request, response);
                     } else {
                         response.sendRedirect("index.jsp"); //error page
                     }
-
-                    /*if (user.isValid()) {
-                        HttpSession session = request.getSession(true);
-                        session.setAttribute("currentSessionUser", user.getUsername());
-                        session.setAttribute("currentSessionLevel", user.getLevel());
-                        response.sendRedirect("userLogged.jsp"); //logged-in page
-                    } else {
-                        response.sendRedirect("index.jsp"); //error page
-                    }*/
                 } catch (Throwable theException) {
                     System.out.println(theException);
                 }
@@ -92,10 +84,9 @@ public class LoginController extends HttpServlet {
                 uID = dao.createUser(user);
 
                 user = dao.getUserByID(uID);
-                session.setAttribute("currentSessionUser", user.getUsername());
-                session.setAttribute("currentSessionIsadmin", user.getIsadmin());
+                session.setAttribute("currentSessionUser", user);
 
-                RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/userLogged.jsp");
+                view = request.getRequestDispatcher("/WEB-INF/views/userArea.jsp");
                 view.forward(request, response);
                 break;
         }
