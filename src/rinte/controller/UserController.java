@@ -43,15 +43,24 @@ public class UserController extends HttpServlet {
 
         HttpSession session = request.getSession(true);
 
+        int userID;
+        int bandID;
         User usr;
 
         switch (action.toLowerCase()){
             case "edit":
+                userID = Integer.parseInt(request.getParameter("u_id"));
+
+                request.setAttribute("user", dao.getUserByID(userID));
+                request.setAttribute("userB", dao.getBandsInUser(userID));
+                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+
                 forward = FORM;
                 break;
 
             case "edited":
                 usr = new User();
+
                 usr.setU_id(Integer.parseInt(request.getParameter("u_id")));
                 usr.setEmail(request.getParameter("email"));
                 usr.setName(request.getParameter("name"));
@@ -72,7 +81,37 @@ public class UserController extends HttpServlet {
                 forward = USER_HOME;
                 break;
 
+            case "adduserband":
+                userID = Integer.parseInt(request.getParameter("u_id"));
+                bandID = Integer.parseInt(request.getParameter("userNotBands"));
+
+                dao.addUserBand(userID, bandID);
+
+                request.setAttribute("user", dao.getUserByID(userID));
+                request.setAttribute("userB", dao.getBandsInUser(userID));
+                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+
+                forward = FORM;
+                break;
+
+            case "removeuserband":
+                userID = Integer.parseInt(request.getParameter("u_id"));
+                bandID = Integer.parseInt(request.getParameter("b_id"));
+
+                dao.removeUserBand(userID, bandID);
+
+                usr = dao.getUserByID(userID);
+                request.setAttribute("event", usr);
+
+                request.setAttribute("userB", dao.getBandsInUser(userID));
+                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+
+                forward = FORM;
+                break;
+
             default:
+                System.out.println(request.getSession(false).getAttribute("currentSessionUser.name"));
+                
                 forward = USER_HOME;
                 break;
         }

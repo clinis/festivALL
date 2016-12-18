@@ -53,20 +53,20 @@
             <table class='table table-bordered table-hover myTransparent'>
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" name="name" value="<c:out value="${sessionScope.currentSessionUser.name}" />" class="form-control"/></td>
+                    <td><input type="text" name="name" value="<c:out value="${user.name}" />" class="form-control"/></td>
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td><input type="text" name="email" value="<c:out value="${sessionScope.currentSessionUser.email}" />" class="form-control"/></td>
+                    <td><input type="text" name="email" value="<c:out value="${user.email}" />" class="form-control"/></td>
                 </tr>
                 <tr>
                     <td>Birthdate</td>
-                    <td><div class="bfh-datepicker" data-format="y/m/d" data-date<fmt:formatDate pattern="yyyy/MM/dd" value="${sessionScope.currentSessionUser.birthdate}"/> data-name="birthdate"></div></td>
+                    <td><div class="bfh-datepicker" data-format="y/m/d" data-date<fmt:formatDate pattern="yyyy/MM/dd" value="${user.birthdate}"/> data-name="birthdate"></div></td>
                 </tr>
                 <tr>
                     <td>City</td>
                     <td>
-                        <div class="bfh-selectbox" data-name="city" id="city" data-value="<c:out value="${sessionScope.currentSessionUser.city}" />" data-filter="true">
+                        <div class="bfh-selectbox" data-name="city" id="city" data-value="<c:out value="${user.city}" />" data-filter="true">
                             <div data-value="porto">Porto</div>
                             <div data-value="lisboa">Lisboa</div>
                             <div data-value="braga">Braga</div>
@@ -77,7 +77,7 @@
                 <tr>
                     <td>
                         <!-- hidden ID field so that we could identify what record is to be updated -->
-                        <input type='hidden' name='u_id' value="<c:out value="${sessionScope.currentSessionUser.u_id}" />" />
+                        <input type='hidden' name='u_id' value="<c:out value="${user.u_id}" />" />
                         <input type='hidden' name='action' value="edited" />
                     </td>
                     <td>
@@ -86,6 +86,33 @@
                 </tr>
             </table>
         </form>
+        <div class="row myTransparent">
+            <div class="col-sm-6">
+                <form method="POST" action="UserController" name="frmEditUser" class="form-inline">
+                    <select class="form-control" name="userNotBands">
+                        <c:forEach items="${userNB}" var="unb">
+                            <option value="<c:out value="${unb.b_id}" />"><c:out value="${unb.name}" /></option>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" name="u_id" value="<c:out value="${user.u_id}" />"/>
+                    <input type="hidden" name="action" value="addUserBand" />
+                    <button type='submit' name="submit" value='Submit' class='btn btn-success'>
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add band to my profile
+                    </button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <c:forEach items="${userB}" var="ub">
+                    <form method="POST" action='UserController' name="frmEditUser">
+                        <input type="hidden" name="b_id" value="<c:out value="${ub.b_id}" />"/>
+                        <c:out value="${ub.name}" />
+                        <input type="hidden" name="u_id" value="<c:out value="${user.u_id}" />"/>
+                        <input type="hidden" name="action" value="removeUserBand" />
+                        <button type='submit' name="submit" value='Submit' class='btn-link'><span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                    </form>
+                </c:forEach>
+            </div>
+        </div>
     </div>
 </body>
 </html>

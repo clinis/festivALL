@@ -90,6 +90,16 @@
             <div class="row">
                 <h1>My Bands</h1>
                 <div class="card-columns">
+                <c:forEach items="${userB}" var="ub">
+                    <div class='col-xs-4'>
+                        <div class='panel panel-default'>
+                            <div class='panel-heading'><c:out value="${ub.name}" /></div>
+                            <div class='panel-body'>
+                                vdvfbgnf
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
                 </div>
             </div>
         </div>

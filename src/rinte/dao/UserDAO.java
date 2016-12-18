@@ -1,5 +1,6 @@
 package rinte.dao;
 
+import rinte.model.Band;
 import rinte.model.User;
 import rinte.util.Database;
 
@@ -51,6 +52,28 @@ public class UserDAO {
             preparedStatement.setString(4, usr.getCity());
             preparedStatement.setInt(5, usr.getU_id());
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addUserBand(int userID, int bandID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO profile_bands(u_id, b_id) VALUES(?, ?)");
+            ps.setInt(1, userID);
+            ps.setInt(2, bandID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeUserBand(int userID, int bandID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM profile_bands WHERE u_id=? AND b_id=?");
+            ps.setInt(1, userID);
+            ps.setInt(2, bandID);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -115,5 +138,49 @@ public class UserDAO {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public List<Band> getBandsInUser(int userID) {
+        List<Band> bandsInUser = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id FROM bands WHERE EXISTS ( SELECT * FROM profile_bands WHERE bands.b_id = profile_bands.b_id AND profile_bands.u_id = ? ) AND bands.isdeleted = 0");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Band band = new Band();
+
+                band.setB_id(rs.getInt("b_id"));
+                band.setName(rs.getString("name"));
+
+                bandsInUser.add(band);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bandsInUser;
+    }
+
+    public List<Band> getBandsNotInUser(int userID) {
+        List<Band> bandsNotInUser = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM profile_bands WHERE bands.b_id = profile_bands.b_id AND profile_bands.u_id = ? ) AND bands.isdeleted = 0");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Band band = new Band();
+
+                band.setB_id(rs.getInt("b_id"));
+                band.setName(rs.getString("name"));
+
+                bandsNotInUser.add(band);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bandsNotInUser;
     }
 }
