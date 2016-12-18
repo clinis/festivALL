@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        System.out.println("Controller action: " + action);
+        System.out.println("LController action: " + action);
 
         HttpSession session = request.getSession(true);
         RequestDispatcher view;
@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("currentSessionUser", user.getU_id());
                         session.setAttribute("currentSessionLevel", user.getIsadmin());
 
-                        view = request.getRequestDispatcher("UserController?action=default");
+                        view = request.getRequestDispatcher("UserController?page=default");
                         view.forward(request, response);
                     } else {
                         response.sendRedirect("index.jsp");
@@ -93,7 +93,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("currentSessionUser", usr.getU_id());
                 session.setAttribute("currentSessionLevel", usr.getIsadmin());
 
-                view = request.getRequestDispatcher("UserController?action=default");
+                view = request.getRequestDispatcher("UserController?page=default");
                 view.forward(request, response);
                 break;
         }

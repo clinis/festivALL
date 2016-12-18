@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bands List</title>
+    <title>Manage Bands</title>
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
@@ -39,7 +39,7 @@
     <%@ include file="../../nav.jsp"%>
     <div class="container">
         <h1 id='page-title'>All Bands</h1>
-        <a href="BandController?action=insert"><button class='btn btn-success btn-xs pull-right'>Add Band</button></a>
+        <a href="BandController?page=addBand"><button class='btn btn-success btn-xs pull-right'>Add Band</button></a>
         <table class="table table-bordered table-striped myTransparent">
             <thead>
                 <tr>
@@ -58,12 +58,18 @@
                     <td>
                         <form method="POST" action="BandController" name="listEdit">
                             <input type="hidden" name="b_id" value="${band.b_id}">
-                            <input type="submit" name="action" value="Edit" class='btn btn-info btn-xs'></input>
+                            <input type="hidden" name="page" value="editBand" />
+                            <button type='submit' name="submit" value='submit' class='btn btn-info btn-xs'>
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Edit Band
+                            </button>
                         </form>
 
                         <form method="POST" action="BandController" name="listDelete">
                             <input type="hidden" name="b_id" value="${band.b_id}">
-                            <input type="submit" name="action" value="Delete" class='btn btn-danger btn-xs'></input>
+                            <input type="hidden" name="action" value="deleteBand" />
+                            <button type='submit' name="submit" value='submit' class='btn btn-danger btn-xs'>
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Delete Band
+                            </button>
                         </form>
                     </td>
                 </tr>

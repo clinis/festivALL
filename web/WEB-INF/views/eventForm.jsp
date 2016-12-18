@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Event</title>
+    <title>Event Event</title>
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
@@ -37,15 +37,15 @@
 </head>
 <body>
     <%@ include file="../../nav.jsp"%>
-    <% String action = request.getParameter("action");
-        System.out.println(action);
+    <% String pag = request.getParameter("page");
+        System.out.println(pag);
     %>
     <div class="container">
         <div class="row">
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="../../index.jsp">Home Page</a></li>
-                <li><a href="EventController?action=manageEvents">Manage Events</a></li>
-                <% if (action.equalsIgnoreCase("edit")) { %>
+                <li><a href="EventController?page=manageEvents">Manage Events</a></li>
+                <% if (pag.equalsIgnoreCase("editevent")) { %>
                 <li class="active">Edit Event "${event.name}"</li>
                 <% } else { %>
                 <li class="active">Add New Event</li>
@@ -53,7 +53,7 @@
             </ol>
         </div>
         <div class="row">
-            <form method="POST" action='EventController' name="frmAddEvent">
+            <form method="POST" action='EventController'>
                 <table class='table table-bordered table-hover myTransparent'>
                     <tr>
                         <td>Event Name</td>
@@ -81,15 +81,15 @@
                     <tr>
                         <td></td>
                         <td>
-                            <% if (action.equalsIgnoreCase("edit")) { %>
+                            <% if (pag.equalsIgnoreCase("editevent")) { %>
                             <input type="hidden" name="e_id" value="<c:out value="${event.e_id}" />"/>
                             <input type="hidden" name="action" value="edited" />
-                            <button type='submit' name="submit" value='Submit' class='btn btn-primary'>
+                            <button type='submit' name="submit" value='submit' class='btn btn-primary'>
                                 <i class="fa fa-pencil" aria-hidden="true"></i> Save changes
                             </button>
                             <% } else { %>
                             <input type="hidden" name="action" value="added" />
-                            <button type='submit' name="submit" value='Submit' class='btn btn-primary'>
+                            <button type='submit' name="submit" value='submit' class='btn btn-primary'>
                                 <i class="fa fa-plus" aria-hidden="true"></i> Add
                             </button>
                             <% } %>
@@ -98,10 +98,10 @@
                 </table>
             </form>
         </div>
-        <% if (action.equalsIgnoreCase("edit")) { %>
+        <% if (pag.equalsIgnoreCase("editevent")) { %>
         <div class="row myTransparent">
             <div class="col-sm-6">
-                <form method="POST" action="EventController" name="frmEditEvent" class="form-inline">
+                <form method="POST" action="EventController" class="form-inline">
                     <select class="form-control" name="eventNotBands">
                         <c:forEach items="${eventNB}" var="enb">
                             <option value="<c:out value="${enb.b_id}" />"><c:out value="${enb.name}" /></option>
@@ -116,7 +116,7 @@
             </div>
             <div class="col-sm-6">
                 <c:forEach items="${eventB}" var="eb">
-                    <form method="POST" action='EventController' name="frmEditEvent">
+                    <form method="POST" action='EventController'>
                         <input type="hidden" name="b_id" value="<c:out value="${eb.b_id}" />"/>
                         <c:out value="${eb.name}" />
                         <input type="hidden" name="e_id" value="<c:out value="${event.e_id}" />"/>

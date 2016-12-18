@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Events List</title>
+    <title>Manage Events</title>
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
@@ -39,7 +39,7 @@
     <%@ include file="../../nav.jsp"%>
     <div class="container">
         <h1 id='page-title'>All Events</h1>
-        <a href="EventController?action=insert"><button class='btn btn-success btn-xs pull-right'>Add Event</button></a>
+        <a href="EventController?page=addevent"><button class='btn btn-success btn-xs pull-right'>Add Event</button></a>
         <table class="table table-bordered table-striped myTransparent">
             <thead>
             <tr>
@@ -76,12 +76,17 @@
                     <td>
                         <form method="POST" action="EventController" name="listEdit">
                             <input type="hidden" name="e_id" value="${event.e_id}">
-                            <input type="submit" name="action" value="Edit" class='btn btn-info btn-xs'></input>
+                            <input type="hidden" name="page" value="editEvent" />
+                            <button type='submit' name="submit" value='submit' class='btn btn-info btn-xs'>
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Edit Event
+                            </button>
                         </form>
-
                         <form method="POST" action="EventController" name="listDelete">
                             <input type="hidden" name="e_id" value="${event.e_id}">
-                            <input type="submit" name="action" value="Delete" class='btn btn-danger btn-xs'></input>
+                            <input type="hidden" name="action" value="deleteEvent" />
+                            <button type='submit' name="submit" value='submit' class='btn btn-danger btn-xs'>
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Delete Event
+                            </button>
                         </form>
                     </td>
                 </tr>

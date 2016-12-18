@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Band</title>
+    <title>Band Form</title>
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
@@ -37,22 +37,22 @@
 </head>
 <body>
     <%@ include file="../../nav.jsp"%>
-    <% String action = request.getParameter("action");
-        System.out.println(action);
+    <% String pag = request.getParameter("page");
+        System.out.println(pag);
     %>
     <div class="container">
         <div>
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="../../index.jsp">Home Page</a></li>
-                <li><a href="BandController?action=manageBands">Manage Bands</a></li>
-                <% if (action.equalsIgnoreCase("edit")) { %>
+                <li><a href="BandController?page=manageBands">Manage Bands</a></li>
+                <% if (pag.equalsIgnoreCase("editband")) { %>
                 <li class="active">Edit Band "${band.name}"</li>
                 <% } else { %>
                 <li class="active">Add New Band</li>
                 <% } %>
             </ol>
         </div>
-        <form method="POST" action='BandController' name="frmAddBand">
+        <form method="POST" action='BandController'>
             <table class='table table-bordered table-hover myTransparent'>
                 <tr>
                     <td>Band Name</td>
@@ -67,15 +67,15 @@
                 <tr>
                     <td></td>
                     <td>
-                        <% if (action.equalsIgnoreCase("edit")) { %>
+                        <% if (pag.equalsIgnoreCase("editband")) { %>
                         <input type="hidden" name="b_id" value="<c:out value="${band.b_id}" />"/>
                         <input type="hidden" name="action" value="edited" />
-                        <button type='submit' name="submit" value='Submit' class='btn btn-primary'>
+                        <button type='submit' name="submit" value='submit' class='btn btn-primary'>
                             <i class="fa fa-pencil" aria-hidden="true"></i> Save changes
                         </button>
                         <% } else { %>
                         <input type="hidden" name="action" value="added" />
-                        <button type='submit' name="submit" value='Submit' class='btn btn-primary'>
+                        <button type='submit' name="submit" value='submit' class='btn btn-primary'>
                             <i class="fa fa-plus" aria-hidden="true"></i> Add
                         </button>
                         <% } %>

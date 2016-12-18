@@ -35,7 +35,7 @@ public class BandController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        System.out.println("Controller action: " + action);
+        String page = request.getParameter("page");
 
         request.setAttribute("bands", dao.getAllBands());
         String forward = LIST_BANDS;
@@ -43,63 +43,73 @@ public class BandController extends HttpServlet {
         int bandID;
         Band band;
 
-        switch (action.toLowerCase()) {
-            case "edit":
-                bandID = Integer.parseInt(request.getParameter("b_id"));
-                band = dao.getBandByID(bandID);
-                request.setAttribute("band", band);
-                request.setAttribute("action", "edit");
-                forward = FORM_INSERT_OR_EDIT;
-                break;
+        if (page != null){
+            System.out.println("BController page: " + page);
 
-            case "edited":
-                band = new Band();
-                band.setB_id(Integer.parseInt(request.getParameter("b_id")));
-                band.setName(request.getParameter("name"));
-                band.setImage(request.getParameter("image"));
-                band.setArtists(request.getParameter("artists"));
+            switch (page.toLowerCase()) {
+                case "addband":
+                    request.setAttribute("action", "insert");
+                    forward = FORM_INSERT_OR_EDIT;
+                    break;
 
-                dao.updateBand(band);
+                case "managebands":
+                    request.setAttribute("bands", dao.getAllBands());
+                    forward = MANAGE_BANDS;
+                    break;
 
-                request.setAttribute("bands", dao.getAllBands());
-                forward = MANAGE_BANDS;
-                break;
+                case "editband":
+                    bandID = Integer.parseInt(request.getParameter("b_id"));
+                    band = dao.getBandByID(bandID);
+                    request.setAttribute("band", band);
+                    request.setAttribute("action", "edit");
+                    forward = FORM_INSERT_OR_EDIT;
+                    break;
 
-            case "added":
-                band = new Band();
-                band.setName(request.getParameter("name"));
-                band.setImage(request.getParameter("image"));
-                band.setArtists(request.getParameter("artists"));
+                default:
+                    request.setAttribute("bands", dao.getAllBands());
+                    forward = LIST_BANDS;
+                    break;
+            }
+        }
 
-                dao.addBand(band);
+        if (action != null) {
+            System.out.println("BController action: " + action);
 
-                request.setAttribute("bands", dao.getAllBands());
-                forward = MANAGE_BANDS;
-                break;
+            switch (action.toLowerCase()) {
+                case "edited":
+                    band = new Band();
+                    band.setB_id(Integer.parseInt(request.getParameter("b_id")));
+                    band.setName(request.getParameter("name"));
+                    band.setImage(request.getParameter("image"));
+                    band.setArtists(request.getParameter("artists"));
 
-            case "delete":
-                bandID = Integer.parseInt(request.getParameter("b_id"));
+                    dao.updateBand(band);
 
-                dao.deleteBand(bandID);
+                    request.setAttribute("bands", dao.getAllBands());
+                    forward = MANAGE_BANDS;
+                    break;
 
-                request.setAttribute("bands", dao.getAllBands());
-                forward = MANAGE_BANDS;
-                break;
+                case "added":
+                    band = new Band();
+                    band.setName(request.getParameter("name"));
+                    band.setImage(request.getParameter("image"));
+                    band.setArtists(request.getParameter("artists"));
 
-            case "insert":
-                request.setAttribute("action", "insert");
-                forward = FORM_INSERT_OR_EDIT;
-                break;
+                    dao.addBand(band);
 
-            case "managebands":
-                request.setAttribute("bands", dao.getAllBands());
-                forward = MANAGE_BANDS;
-                break;
+                    request.setAttribute("bands", dao.getAllBands());
+                    forward = MANAGE_BANDS;
+                    break;
 
-            default:
-                request.setAttribute("bands", dao.getAllBands());
-                forward = LIST_BANDS;
-                break;
+                case "deleteband":
+                    bandID = Integer.parseInt(request.getParameter("b_id"));
+
+                    dao.deleteBand(bandID);
+
+                    request.setAttribute("bands", dao.getAllBands());
+                    forward = MANAGE_BANDS;
+                    break;
+            }
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);

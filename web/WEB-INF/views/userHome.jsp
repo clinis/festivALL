@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Welcome</title>
+    <title>User Home</title>
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
@@ -51,7 +51,7 @@
                                 <div class="col-xs-6  col-md-3 col-lg-3 " align="center">
                                     <img class='img-responsive img-thumbnail' src='libs/img/user.png'/>
                                     <p>
-                                    <form method="POST" action="UserController?action=edit">
+                                    <form method="POST" action="UserController?page=editUser">
                                         <input type='hidden' name='u_id' value="<c:out value="${user.u_id}"/>" />
                                         <input type="submit" name="edit" value="Edit profile" class='btn btn-info btn-sm'></input>
                                     </form>

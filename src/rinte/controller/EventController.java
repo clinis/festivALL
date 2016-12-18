@@ -40,7 +40,7 @@ public class EventController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        System.out.println("Controller action: " + action);
+        String page = request.getParameter("page");
 
         request.setAttribute("events", dao.getAllEvents());
         String forward = LIST_EVENTS;
@@ -49,118 +49,128 @@ public class EventController extends HttpServlet {
         int bandID;
         Event event;
 
-        switch (action.toLowerCase()){
-            case "delete":
-                eventID = Integer.parseInt(request.getParameter("e_id"));
-                dao.deleteEvent(eventID);
+        if (page != null){
+            System.out.println("EController page: " + page);
 
-                forward = LIST_EVENTS;
-                request.setAttribute("events", dao.getAllEvents());
-                break;
+            switch (page.toLowerCase()) {
+                case "manageevents":
+                    request.setAttribute("bands", dao.getAllEvents());
+                    forward = MANAGE_EVENTS;
+                    break;
 
-            case "edit":
-                forward = FORM_INSERT_OR_EDIT;
+                case "addevent":
+                    request.setAttribute("action", "insert");
+                    request.setAttribute("bands", daoB.getAllBands());
+                    forward = FORM_INSERT_OR_EDIT;
+                    break;
 
-                eventID = Integer.parseInt(request.getParameter("e_id"));
-                event = dao.getEventByID(eventID);
+                case "editevent":
+                    forward = FORM_INSERT_OR_EDIT;
 
-                request.setAttribute("action", "edit");
-                request.setAttribute("event", event);
-                request.setAttribute("eventB", dao.getBandsInEvent(eventID));
-                request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
-                break;
+                    eventID = Integer.parseInt(request.getParameter("e_id"));
+                    event = dao.getEventByID(eventID);
 
-            case "edited":
-                event = new Event();
-                event.setE_id(Integer.parseInt(request.getParameter("e_id")));
-                event.setType(Short.parseShort(request.getParameter("type")));
-                event.setName(request.getParameter("name"));
-                try {
-                    Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
-                    System.out.println("eddd:"+d);
-                    event.setDate(d);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                event.setCity(request.getParameter("city"));
-                event.setPlace(request.getParameter("place"));
+                    request.setAttribute("action", "edit");
+                    request.setAttribute("event", event);
+                    request.setAttribute("eventB", dao.getBandsInEvent(eventID));
+                    request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
+                    break;
 
-                dao.updateEvent(event);
+                default:
+                    request.setAttribute("events", dao.getAllEvents());
+                    forward = LIST_EVENTS;
+                    break;
+            }
+        }
 
-                request.setAttribute("events", dao.getAllEvents());
-                forward = LIST_EVENTS;
-                break;
+        if (action != null) {
+            System.out.println("EController action: " + action);
 
-            case "addeventband":
-                eventID = Integer.parseInt(request.getParameter("e_id"));
-                bandID = Integer.parseInt(request.getParameter("eventNotBands"));
+            switch (action.toLowerCase()){
+                case "deleteevent":
+                    eventID = Integer.parseInt(request.getParameter("e_id"));
+                    dao.deleteEvent(eventID);
 
-                dao.addEventBand(eventID, bandID);
+                    forward = MANAGE_EVENTS;
+                    request.setAttribute("events", dao.getAllEvents());
+                    break;
 
-                event = dao.getEventByID(eventID);
-                request.setAttribute("event", event);
+                case "edited":
+                    event = new Event();
+                    event.setE_id(Integer.parseInt(request.getParameter("e_id")));
+                    event.setType(Short.parseShort(request.getParameter("type")));
+                    event.setName(request.getParameter("name"));
+                    try {
+                        Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
+                        System.out.println("eddd:"+d);
+                        event.setDate(d);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    event.setCity(request.getParameter("city"));
+                    event.setPlace(request.getParameter("place"));
 
-                request.setAttribute("eventB", dao.getBandsInEvent(eventID));
-                request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
+                    dao.updateEvent(event);
 
-                request.setAttribute("action","");
-                request.setAttribute("action", "edit");
-                forward = FORM_INSERT_OR_EDIT;
-                break;
+                    request.setAttribute("events", dao.getAllEvents());
+                    forward = LIST_EVENTS;
+                    break;
 
-            case "removeeventband":
-                eventID = Integer.parseInt(request.getParameter("e_id"));
-                bandID = Integer.parseInt(request.getParameter("b_id"));
+                case "addeventband":
+                    eventID = Integer.parseInt(request.getParameter("e_id"));
+                    bandID = Integer.parseInt(request.getParameter("eventNotBands"));
 
-                dao.removeEventBand(eventID, bandID);
+                    dao.addEventBand(eventID, bandID);
 
-                event = dao.getEventByID(eventID);
-                request.setAttribute("event", event);
+                    event = dao.getEventByID(eventID);
+                    request.setAttribute("event", event);
 
-                request.setAttribute("eventB", dao.getBandsInEvent(eventID));
-                request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
+                    request.setAttribute("eventB", dao.getBandsInEvent(eventID));
+                    request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
 
-                request.setAttribute("action", "edit");
-                forward = FORM_INSERT_OR_EDIT;
-                break;
+                    request.setAttribute("action","");
+                    request.setAttribute("action", "edit");
+                    forward = FORM_INSERT_OR_EDIT;
+                    break;
 
-            case "added":
-                event = new Event();
-                event.setName(request.getParameter("name"));
-                event.setType(Short.parseShort(request.getParameter("type")));
+                case "removeeventband":
+                    eventID = Integer.parseInt(request.getParameter("e_id"));
+                    bandID = Integer.parseInt(request.getParameter("b_id"));
 
-                try {
-                    Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
-                    System.out.println("add"+ reg);
-                    event.setDate(reg);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                    dao.removeEventBand(eventID, bandID);
 
-                event.setCity(request.getParameter("city"));
-                event.setPlace(request.getParameter("place"));
+                    event = dao.getEventByID(eventID);
+                    request.setAttribute("event", event);
 
-                dao.addEvent(event);
+                    request.setAttribute("eventB", dao.getBandsInEvent(eventID));
+                    request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
 
-                request.setAttribute("events", dao.getAllEvents());
-                forward = LIST_EVENTS;
-                break;
+                    request.setAttribute("action", "edit");
+                    forward = FORM_INSERT_OR_EDIT;
+                    break;
 
-            case "insert":
-                request.setAttribute("action", "insert");
-                request.setAttribute("bands", daoB.getAllBands());
-                forward = FORM_INSERT_OR_EDIT;
-                break;
+                case "added":
+                    event = new Event();
+                    event.setName(request.getParameter("name"));
+                    event.setType(Short.parseShort(request.getParameter("type")));
 
-            case "manageevents":
-                request.setAttribute("bands", dao.getAllEvents());
-                forward = MANAGE_EVENTS;
-                break;
+                    try {
+                        Date reg = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("date"));
+                        System.out.println("add"+ reg);
+                        event.setDate(reg);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-            default:
-                request.setAttribute("events", dao.getAllEvents());
-                forward = LIST_EVENTS;
-                break;
+                    event.setCity(request.getParameter("city"));
+                    event.setPlace(request.getParameter("place"));
+
+                    dao.addEvent(event);
+
+                    request.setAttribute("events", dao.getAllEvents());
+                    forward = LIST_EVENTS;
+                    break;
+            }
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);

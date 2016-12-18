@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Event</title>
+    <title>User Form</title>
 
     <!-- bootstrap CSS -->
     <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
@@ -37,14 +37,12 @@
 </head>
 <body>
     <%@ include file="../../nav.jsp"%>
-    <% String action = request.getParameter("action");
-        System.out.println(action);
-    %>
+
     <div class="container">
         <div class="page-header">
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="../../index.jsp">Home Page</a></li>
-                <li><a href="UserController?action=userArea">User Home</a></li>
+                <li><a href="UserController?page=userArea">User Home</a></li>
                 <li class="active">${user.name}</li>
             </ol>
             <h1 id='page-title'>Edit your profile</h1>

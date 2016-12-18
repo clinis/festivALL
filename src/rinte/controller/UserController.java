@@ -37,9 +37,9 @@ public class UserController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        System.out.println("Controller action: " + action);
+        String page = request.getParameter("page");
 
-        String forward;
+        String forward = null;
 
         HttpSession session = request.getSession(true);
 
@@ -48,111 +48,124 @@ public class UserController extends HttpServlet {
         int eventID;
         User usr;
 
-        switch (action.toLowerCase()){
-            case "edit":
-                userID = Integer.parseInt(request.getParameter("u_id"));
+        if (page != null) {
+            System.out.println("UController page: " + page);
 
-                request.setAttribute("user", dao.getUserByID(userID));
-                request.setAttribute("userB", dao.getBandsInUser(userID));
-                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
-                request.setAttribute("userE", dao.getEventsInUser(userID));
-                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+            switch (page.toLowerCase()) {
+                case "edituser":
+                    userID = Integer.parseInt(request.getParameter("u_id"));
 
-                forward = FORM;
-                break;
+                    request.setAttribute("user", dao.getUserByID(userID));
+                    request.setAttribute("userB", dao.getBandsInUser(userID));
+                    request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                    request.setAttribute("userE", dao.getEventsInUser(userID));
+                    request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
-            case "edited":
-                usr = new User();
+                    forward = FORM;
+                    break;
 
-                usr.setU_id(Integer.parseInt(request.getParameter("u_id")));
-                usr.setEmail(request.getParameter("email"));
-                usr.setName(request.getParameter("name"));
-                try {
-                    Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("birthdate"));
-                    System.out.println("eddd:"+d);
-                    usr.setBirthdate(d);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                usr.setCity(request.getParameter("city"));
+                default:
+                    request.setAttribute("user", dao.getUserByID((Integer) request.getSession(false).getAttribute("currentSessionUser")));
 
-                dao.updateUser(usr);
+                    request.setAttribute("userB", dao.getBandsInUser((Integer) request.getSession(false).getAttribute("currentSessionUser")));
 
-                usr = dao.getUserByID(Integer.parseInt(request.getParameter("u_id")));
-                request.setAttribute("user",usr);
+                    request.setAttribute("userE", dao.getEventsInUser((Integer) request.getSession(false).getAttribute("currentSessionUser")));
 
-                forward = USER_HOME;
-                break;
+                    forward = USER_HOME;
+                    break;
+            }
+        }
 
-            case "adduserband":
-                userID = Integer.parseInt(request.getParameter("u_id"));
-                bandID = Integer.parseInt(request.getParameter("userNotBands"));
+        if (action != null) {
+            System.out.println("UController action: " + action);
 
-                dao.addUserBand(userID, bandID);
+            switch (action.toLowerCase()){
+                case "edited":
+                    usr = new User();
 
-                request.setAttribute("user", dao.getUserByID(userID));
-                request.setAttribute("userB", dao.getBandsInUser(userID));
-                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
-                request.setAttribute("userE", dao.getEventsInUser(userID));
-                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+                    usr.setU_id(Integer.parseInt(request.getParameter("u_id")));
+                    usr.setEmail(request.getParameter("email"));
+                    usr.setName(request.getParameter("name"));
+                    try {
+                        Date d = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("birthdate"));
+                        System.out.println("eddd:"+d);
+                        usr.setBirthdate(d);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    usr.setCity(request.getParameter("city"));
 
-                forward = FORM;
-                break;
+                    dao.updateUser(usr);
 
-            case "removeuserband":
-                userID = Integer.parseInt(request.getParameter("u_id"));
-                bandID = Integer.parseInt(request.getParameter("b_id"));
+                    request.setAttribute("user", dao.getUserByID(Integer.parseInt(request.getParameter("u_id"))));
+                    request.setAttribute("userB", dao.getBandsInUser(Integer.parseInt(request.getParameter("u_id"))));
+                    request.setAttribute("userNB", dao.getBandsNotInUser(Integer.parseInt(request.getParameter("u_id"))));
+                    request.setAttribute("userE", dao.getEventsInUser(Integer.parseInt(request.getParameter("u_id"))));
+                    request.setAttribute("userNE", dao.getEventsNotInUser(Integer.parseInt(request.getParameter("u_id"))));
 
-                dao.removeUserBand(userID, bandID);
+                    forward = USER_HOME;
+                    break;
 
-                request.setAttribute("user", dao.getUserByID(userID));
-                request.setAttribute("userB", dao.getBandsInUser(userID));
-                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
-                request.setAttribute("userE", dao.getEventsInUser(userID));
-                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+                case "adduserband":
+                    userID = Integer.parseInt(request.getParameter("u_id"));
+                    bandID = Integer.parseInt(request.getParameter("userNotBands"));
 
-                forward = FORM;
-                break;
+                    dao.addUserBand(userID, bandID);
 
-            case "adduserevent":
-                userID = Integer.parseInt(request.getParameter("u_id"));
-                eventID = Integer.parseInt(request.getParameter("userNotEvents"));
+                    request.setAttribute("user", dao.getUserByID(userID));
+                    request.setAttribute("userB", dao.getBandsInUser(userID));
+                    request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                    request.setAttribute("userE", dao.getEventsInUser(userID));
+                    request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
-                dao.addUserEvent(userID, eventID);
+                    forward = FORM;
+                    break;
 
-                request.setAttribute("user", dao.getUserByID(userID));
-                request.setAttribute("userB", dao.getBandsInUser(userID));
-                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
-                request.setAttribute("userE", dao.getEventsInUser(userID));
-                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+                case "removeuserband":
+                    userID = Integer.parseInt(request.getParameter("u_id"));
+                    bandID = Integer.parseInt(request.getParameter("b_id"));
 
-                forward = FORM;
-                break;
+                    dao.removeUserBand(userID, bandID);
 
-            case "removeuserevent":
-                userID = Integer.parseInt(request.getParameter("u_id"));
-                eventID = Integer.parseInt(request.getParameter("e_id"));
+                    request.setAttribute("user", dao.getUserByID(userID));
+                    request.setAttribute("userB", dao.getBandsInUser(userID));
+                    request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                    request.setAttribute("userE", dao.getEventsInUser(userID));
+                    request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
-                dao.removeUserEvent(userID, eventID);
+                    forward = FORM;
+                    break;
 
-                request.setAttribute("user", dao.getUserByID(userID));
-                request.setAttribute("userB", dao.getBandsInUser(userID));
-                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
-                request.setAttribute("userE", dao.getEventsInUser(userID));
-                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+                case "adduserevent":
+                    userID = Integer.parseInt(request.getParameter("u_id"));
+                    eventID = Integer.parseInt(request.getParameter("userNotEvents"));
 
-                forward = FORM;
-                break;
+                    dao.addUserEvent(userID, eventID);
 
-            default:
-                request.setAttribute("user", dao.getUserByID((Integer) request.getSession(false).getAttribute("currentSessionUser")));
+                    request.setAttribute("user", dao.getUserByID(userID));
+                    request.setAttribute("userB", dao.getBandsInUser(userID));
+                    request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                    request.setAttribute("userE", dao.getEventsInUser(userID));
+                    request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
-                request.setAttribute("userB", dao.getBandsInUser((Integer) request.getSession(false).getAttribute("currentSessionUser")));
+                    forward = FORM;
+                    break;
 
-                request.setAttribute("userE", dao.getEventsInUser((Integer) request.getSession(false).getAttribute("currentSessionUser")));
+                case "removeuserevent":
+                    userID = Integer.parseInt(request.getParameter("u_id"));
+                    eventID = Integer.parseInt(request.getParameter("e_id"));
 
-                forward = USER_HOME;
-                break;
+                    dao.removeUserEvent(userID, eventID);
+
+                    request.setAttribute("user", dao.getUserByID(userID));
+                    request.setAttribute("userB", dao.getBandsInUser(userID));
+                    request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                    request.setAttribute("userE", dao.getEventsInUser(userID));
+                    request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+
+                    forward = FORM;
+                    break;
+            }
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
