@@ -16,21 +16,6 @@ public class EventDAO {
     }
 
 
-    public void checkEvent(Event evt) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT name FROM events WHERE e_id = ?");
-            ps.setInt(1, evt.getE_id());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) { // found
-                updateEvent(evt);
-            } else {
-                addEvent(evt);
-            }
-        } catch (Exception ex) {
-            System.out.println("Error in check() :" + ex.getMessage());
-        }
-    }
-
     public void addEvent(Event evt) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO events(type, name, date, city, place) VALUES(?, ?, ?, ?, ? )");
@@ -48,7 +33,7 @@ public class EventDAO {
 
     public void deleteEvent(int eventID) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE events SET isdeleted=1 WHERE e_id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM events WHERE e_id=?");
             preparedStatement.setInt(1, eventID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -98,7 +83,7 @@ public class EventDAO {
 
         try {
             Statement ps = connection.createStatement();
-            ResultSet rs = ps.executeQuery("SELECT * FROM events WHERE isdeleted=0");
+            ResultSet rs = ps.executeQuery("SELECT * FROM events");
             while (rs.next()) {
                 Event event = new Event();
                 event.setE_id(rs.getInt("e_id"));
@@ -148,7 +133,7 @@ public class EventDAO {
         List<Band> bandsInEvent = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id FROM bands WHERE EXISTS ( SELECT * FROM events_bands WHERE bands.b_id = events_bands.b_id AND events_bands.e_id = ? ) AND bands.isdeleted = 0");
+            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id FROM bands WHERE EXISTS ( SELECT * FROM events_bands WHERE bands.b_id = events_bands.b_id AND events_bands.e_id = ? )");
             ps.setInt(1, eventID);
             ResultSet rs = ps.executeQuery();
 
@@ -170,7 +155,7 @@ public class EventDAO {
         List<Band> bandsNotInEvent = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM events_bands WHERE bands.b_id = events_bands.b_id AND events_bands.e_id = ? ) AND bands.isdeleted = 0");
+            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM events_bands WHERE bands.b_id = events_bands.b_id AND events_bands.e_id = ? )");
             ps.setInt(1, eventID);
             ResultSet rs = ps.executeQuery();
 

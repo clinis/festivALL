@@ -1,7 +1,6 @@
 package rinte.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class User {
         private int u_id = -1;

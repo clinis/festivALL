@@ -34,15 +34,6 @@
             <p>Welcome to festivALL. Where you can find all your Bands' Concerts.</p>
             <p><a class="btn btn-primary btn-lg" href="login.jsp" role="button">Login</a></p>
         </div>
-
-        <%--<jsp:forward page="/BandController?action=listBands" />--%>
-        <a href="BandController?action=listBands">View Bands</a> <br>
-        <a href="BandController?action=insert">Add Band</a> <br>
-        <a href="BandController?action=manageBands">Manage Bands</a> <br>
-        <br>
-        <a href="EventController?action=listEvents">View Events</a> <br>
-        <a href="EventController?action=insert">Add Event</a> <br>
-        <a href="EventController?action=manageEvents">Manage Events</a> <br>
     </div>
 </body>
 </html>

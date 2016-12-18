@@ -1,12 +1,7 @@
 package rinte.dao;
 
-import rinte.model.Band;
 import rinte.model.Login;
-import rinte.model.User;
 import rinte.util.Database;
-
-import java.text.*;
-import java.util.*;
 import java.sql.*;
 
 public class LoginDAO {

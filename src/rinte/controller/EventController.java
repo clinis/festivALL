@@ -128,8 +128,7 @@ public class EventController extends HttpServlet {
                     request.setAttribute("eventB", dao.getBandsInEvent(eventID));
                     request.setAttribute("eventNB", dao.getBandsNotInEvent(eventID));
 
-                    request.setAttribute("action","");
-                    request.setAttribute("action", "edit");
+                    request.setAttribute("action", "editband");
                     forward = FORM_INSERT_OR_EDIT;
                     break;
 

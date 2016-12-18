@@ -25,9 +25,7 @@ ${requestScope['javax.servlet.forward.request_uri']}--%>
             <ul class="nav navbar-nav">
                 <li class="${pageContext.request.servletPath eq '/index.jsp' ? ' active' : ''}"><a href="index.jsp">Home Page</a></li>
                 <li class="${pageContext.request.servletPath eq '/WEB-INF/views/listbands.jsp' ? ' active' : ''}"><a href="BandController?page=listBands">List Bands</a></li>
-                <li class="${pageContext.request.servletPath eq '/WEB-INF/views/bandForm.jsp' ? ' active' : ''}"><a href="BandController?page=addBand">Add Band</a></li>
                 <li class="${pageContext.request.servletPath eq '/WEB-INF/views/listevents.jsp' ? ' active' : ''}"><a href="EventController?page=listEvents">List Events</a></li>
-                <li class="${pageContext.request.servletPath eq '/WEB-INF/views/eventForm.jsp' ? ' active' : ''}"><a href="EventController?page=addEvent">Add Event</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>

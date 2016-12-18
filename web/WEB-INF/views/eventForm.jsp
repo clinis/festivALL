@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td>Date</td>
-                        <td><div class="bfh-datepicker" data-format="y/m/d" data-date<fmt:formatDate pattern="yyyy/MM/dd" value="${event.date}"/> data-name="date"</div></td>
+                        <td><div class="bfh-datepicker" data-format="y/m/d" data-date<fmt:formatDate pattern="yyyy/MM/dd" value="${event.date}"/> data-name="date"></div></td>
                     </tr>
                     <tr>
                         <td>City</td>

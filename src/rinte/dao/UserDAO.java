@@ -5,7 +5,6 @@ import rinte.model.Event;
 import rinte.model.User;
 import rinte.util.Database;
 
-import java.text.*;
 import java.util.*;
 import java.sql.*;
 
@@ -129,7 +128,7 @@ public class UserDAO {
         List<Band> bandsInUser = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id, artists FROM bands WHERE EXISTS ( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? ) AND bands.isdeleted = 0");
+            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id, artists FROM bands WHERE EXISTS ( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? )");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
 
@@ -152,7 +151,7 @@ public class UserDAO {
         List<Band> bandsNotInUser = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? ) AND bands.isdeleted = 0");
+            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? )");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
 
