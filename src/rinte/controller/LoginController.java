@@ -1,6 +1,8 @@
 package rinte.controller;
 
+import rinte.dao.LoginDAO;
 import rinte.dao.UserDAO;
+import rinte.model.Login;
 import rinte.model.User;
 
 import java.io.IOException;
@@ -15,11 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginController extends HttpServlet {
-    private UserDAO dao;
+    private LoginDAO daoL;
+    private UserDAO daoU;
 
     public LoginController() {
         super();
-        dao = new UserDAO();
+        daoL = new LoginDAO();
+        daoU = new UserDAO();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,14 +46,18 @@ public class LoginController extends HttpServlet {
         switch (action.toLowerCase()) {
             case "login":
                 try {
-                    User user = new User();
+                    Login user = new Login();
                     user.setUsername(request.getParameter("un"));
                     user.setPassword(request.getParameter("pw"));
 
-                    int uID = dao.login(user);
+                    int uID = daoL.login(user);
                     if (uID > 0) {
-                        user = dao.getUserByID(uID);
-                        session.setAttribute("currentSessionUser", user);
+                        user = daoL.getUserByID(uID);
+                        session.setAttribute("currentSessionUser", user.getU_id());
+                        session.setAttribute("currentSessionLevel", user.getIsadmin());
+
+                        User usr = daoU.getUserByID(uID);
+                        request.setAttribute("user",usr);
 
                         view = request.getRequestDispatcher("/WEB-INF/views/userHome.jsp");
                         view.forward(request, response);
@@ -82,10 +90,14 @@ public class LoginController extends HttpServlet {
                 }
                 user.setCity(request.getParameter("city"));
 
-                uID = dao.createUser(user);
+                uID = daoU.createUser(user);
 
-                user = dao.getUserByID(uID);
-                session.setAttribute("currentSessionUser", user);
+                Login usr = daoL.getUserByID(uID);
+                session.setAttribute("currentSessionUser", usr.getU_id());
+                session.setAttribute("currentSessionLevel", usr.getIsadmin());
+
+                User usrr = daoU.getUserByID(uID);
+                request.setAttribute("user",usrr);
 
                 view = request.getRequestDispatcher("/WEB-INF/views/userHome.jsp");
                 view.forward(request, response);

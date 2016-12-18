@@ -44,7 +44,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"> <c:out value="${sessionScope.currentSessionUser.name}"/> </h3>
+                            <h3 class="panel-title"> <c:out value="${user.name}"/> </h3>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -52,7 +52,7 @@
                                     <img class='img-responsive img-thumbnail' src='libs/img/user.png'/>
                                     <p>
                                     <form method="POST" action="UserController?action=edit">
-                                        <input type='hidden' name='u_id' value="<c:out value="${sessionScope.currentSessionUser.u_id}"/>" />
+                                        <input type='hidden' name='u_id' value="<c:out value="${user.u_id}"/>" />
                                         <input type="submit" name="edit" value="Edit profile" class='btn btn-info btn-sm'></input>
                                     </form>
                                 </div>
@@ -61,23 +61,23 @@
                                         <tbody>
                                             <tr>
                                                 <td>Name</td>
-                                                <td> <c:out value="${sessionScope.currentSessionUser.name}"/> </td>
+                                                <td> <c:out value="${user.name}"/> </td>
                                             </tr>
                                             <tr>
                                                 <td>Username</td>
-                                                <td> <c:out value="${sessionScope.currentSessionUser.username}"/> </td>
+                                                <td> <c:out value="${user.username}"/> </td>
                                             </tr>
                                             <tr>
                                                 <td>Email</td>
-                                                <td> <c:out value="${sessionScope.currentSessionUser.email}"/> </td>
+                                                <td> <c:out value="${user.email}"/> </td>
                                             </tr>
                                             <tr>
                                                 <td>Birthdate</td>
-                                                <td> <fmt:formatDate pattern="dd MMMMM yyyy" value="${sessionScope.currentSessionUser.birthdate}" /> </td>
+                                                <td> <fmt:formatDate pattern="dd MMMMM yyyy" value="${user.birthdate}" /> </td>
                                             </tr>
                                             <tr>
                                                 <td>City</td>
-                                                <td> <c:out value="${sessionScope.currentSessionUser.city}"/> </td>
+                                                <td> <c:out value="${user.city}"/> </td>
                                             </tr>
                                         </tbody>
                                     </table>

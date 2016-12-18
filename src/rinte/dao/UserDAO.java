@@ -79,25 +79,6 @@ public class UserDAO {
         }
     }
 
-    public int login(User usr) {
-        int uID = -1;
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
-            ps.setString(1, usr.getUsername());
-            ps.setString(2, usr.getPassword());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) { // found
-                System.out.println("Welcome "+ usr.getUsername());
-                uID = rs.getInt("u_id");
-            } else {
-                System.out.println("Sorry, you are not a registered user! Please sign up first");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return uID;
-    }
-
     public User getUserByID(int uID){
         User user = new User();
         try {
@@ -113,25 +94,6 @@ public class UserDAO {
                 user.setName(rs.getString("name"));
                 user.setBirthdate(rs.getDate("birthdate"));
                 user.setCity(rs.getString("city"));
-                user.setRegisteredon(rs.getDate("registeredon"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
-    public User getUserByUsername(String uname){
-        User user = new User();
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username=?");
-            ps.setString(1, uname);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                user.setU_id(rs.getInt("u_id"));
-                user.setUsername(rs.getString("username"));
-                user.setIsadmin(rs.getShort("isadmin"));
                 user.setRegisteredon(rs.getDate("registeredon"));
             }
         } catch (SQLException e) {

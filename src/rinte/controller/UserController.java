@@ -76,7 +76,7 @@ public class UserController extends HttpServlet {
                 dao.updateUser(usr);
 
                 usr = dao.getUserByID(Integer.parseInt(request.getParameter("u_id")));
-                session.setAttribute("currentSessionUser", usr);
+                request.setAttribute("user",usr);
 
                 forward = USER_HOME;
                 break;
@@ -100,9 +100,7 @@ public class UserController extends HttpServlet {
 
                 dao.removeUserBand(userID, bandID);
 
-                usr = dao.getUserByID(userID);
-                request.setAttribute("event", usr);
-
+                request.setAttribute("user", dao.getUserByID(userID));
                 request.setAttribute("userB", dao.getBandsInUser(userID));
                 request.setAttribute("userNB", dao.getBandsNotInUser(userID));
 
@@ -110,8 +108,8 @@ public class UserController extends HttpServlet {
                 break;
 
             default:
-                System.out.println(request.getSession(false).getAttribute("currentSessionUser.name"));
-                
+                request.setAttribute("user", dao.getUserByID((Integer) request.getSession(false).getAttribute("currentSessionUser")));
+
                 forward = USER_HOME;
                 break;
         }

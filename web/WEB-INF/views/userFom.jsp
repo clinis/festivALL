@@ -45,7 +45,7 @@
             <ol class="breadcrumb myTransparentBreadcrumb">
                 <li><a href="../../index.jsp">Home Page</a></li>
                 <li><a href="UserController?action=userArea">User Home</a></li>
-                <li class="active">${sessionScope.currentSessionUser.name}</li>
+                <li class="active">${user.name}</li>
             </ol>
             <h1 id='page-title'>Edit your profile</h1>
         </div>
