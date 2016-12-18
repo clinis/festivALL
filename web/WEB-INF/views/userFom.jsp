@@ -86,6 +86,7 @@
                 </tr>
             </table>
         </form>
+        <h3>Edit your Bands</h3>
         <div class="row myTransparent">
             <div class="col-sm-6">
                 <form method="POST" action="UserController" name="frmEditUser" class="form-inline">
@@ -108,6 +109,34 @@
                         <c:out value="${ub.name}" />
                         <input type="hidden" name="u_id" value="<c:out value="${user.u_id}" />"/>
                         <input type="hidden" name="action" value="removeUserBand" />
+                        <button type='submit' name="submit" value='Submit' class='btn-link'><span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                    </form>
+                </c:forEach>
+            </div>
+        </div>
+        <h3>Edit your Events</h3>
+        <div class="row myTransparent">
+            <div class="col-sm-6">
+                <form method="POST" action="UserController" name="frmEditUser" class="form-inline">
+                    <select class="form-control" name="userNotEvents">
+                        <c:forEach items="${userNE}" var="une">
+                            <option value="<c:out value="${une.e_id}" />"><c:out value="${une.name}" /></option>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" name="u_id" value="<c:out value="${user.u_id}" />"/>
+                    <input type="hidden" name="action" value="addUserEvent" />
+                    <button type='submit' name="submit" value='Submit' class='btn btn-success'>
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add event to my profile
+                    </button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <c:forEach items="${userE}" var="ue">
+                    <form method="POST" action='UserController' name="frmEditUser">
+                        <input type="hidden" name="e_id" value="<c:out value="${ue.e_id}" />"/>
+                        <c:out value="${ue.name}" />
+                        <input type="hidden" name="u_id" value="<c:out value="${user.u_id}" />"/>
+                        <input type="hidden" name="action" value="removeUserEvent" />
                         <button type='submit' name="submit" value='Submit' class='btn-link'><span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
                     </form>
                 </c:forEach>

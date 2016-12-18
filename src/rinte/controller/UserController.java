@@ -45,6 +45,7 @@ public class UserController extends HttpServlet {
 
         int userID;
         int bandID;
+        int eventID;
         User usr;
 
         switch (action.toLowerCase()){
@@ -54,6 +55,8 @@ public class UserController extends HttpServlet {
                 request.setAttribute("user", dao.getUserByID(userID));
                 request.setAttribute("userB", dao.getBandsInUser(userID));
                 request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                request.setAttribute("userE", dao.getEventsInUser(userID));
+                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
                 forward = FORM;
                 break;
@@ -90,6 +93,8 @@ public class UserController extends HttpServlet {
                 request.setAttribute("user", dao.getUserByID(userID));
                 request.setAttribute("userB", dao.getBandsInUser(userID));
                 request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                request.setAttribute("userE", dao.getEventsInUser(userID));
+                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
                 forward = FORM;
                 break;
@@ -103,12 +108,48 @@ public class UserController extends HttpServlet {
                 request.setAttribute("user", dao.getUserByID(userID));
                 request.setAttribute("userB", dao.getBandsInUser(userID));
                 request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                request.setAttribute("userE", dao.getEventsInUser(userID));
+                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+
+                forward = FORM;
+                break;
+
+            case "adduserevent":
+                userID = Integer.parseInt(request.getParameter("u_id"));
+                eventID = Integer.parseInt(request.getParameter("userNotEvents"));
+
+                dao.addUserEvent(userID, eventID);
+
+                request.setAttribute("user", dao.getUserByID(userID));
+                request.setAttribute("userB", dao.getBandsInUser(userID));
+                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                request.setAttribute("userE", dao.getEventsInUser(userID));
+                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
+
+                forward = FORM;
+                break;
+
+            case "removeuserevent":
+                userID = Integer.parseInt(request.getParameter("u_id"));
+                eventID = Integer.parseInt(request.getParameter("e_id"));
+
+                dao.removeUserEvent(userID, eventID);
+
+                request.setAttribute("user", dao.getUserByID(userID));
+                request.setAttribute("userB", dao.getBandsInUser(userID));
+                request.setAttribute("userNB", dao.getBandsNotInUser(userID));
+                request.setAttribute("userE", dao.getEventsInUser(userID));
+                request.setAttribute("userNE", dao.getEventsNotInUser(userID));
 
                 forward = FORM;
                 break;
 
             default:
                 request.setAttribute("user", dao.getUserByID((Integer) request.getSession(false).getAttribute("currentSessionUser")));
+
+                request.setAttribute("userB", dao.getBandsInUser((Integer) request.getSession(false).getAttribute("currentSessionUser")));
+
+                request.setAttribute("userE", dao.getEventsInUser((Integer) request.getSession(false).getAttribute("currentSessionUser")));
 
                 forward = USER_HOME;
                 break;

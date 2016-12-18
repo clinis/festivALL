@@ -88,18 +88,33 @@
                 </div>
             </div>
             <div class="row">
-                <h1>My Bands</h1>
+                <h1>Your Events</h1>
                 <div class="card-columns">
-                <c:forEach items="${userB}" var="ub">
+                <c:forEach items="${userE}" var="ue">
                     <div class='col-xs-4'>
                         <div class='panel panel-default'>
-                            <div class='panel-heading'><c:out value="${ub.name}" /></div>
+                            <div class='panel-heading'><c:out value="${ue.name}" /> (<c:out value="${ue.date}" />)</div>
                             <div class='panel-body'>
-                                vdvfbgnf
+                                <c:out value="${ue.place}" />
                             </div>
                         </div>
                     </div>
                 </c:forEach>
+                </div>
+            </div>
+            <div class="row">
+                <h1>Your Bands</h1>
+                <div class="card-columns">
+                    <c:forEach items="${userB}" var="ub">
+                        <div class='col-xs-4'>
+                            <div class='panel panel-default'>
+                                <div class='panel-heading'><c:out value="${ub.name}" /></div>
+                                <div class='panel-body'>
+                                    <c:out value="${ub.artists}" />
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

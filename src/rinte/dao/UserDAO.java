@@ -1,6 +1,7 @@
 package rinte.dao;
 
 import rinte.model.Band;
+import rinte.model.Event;
 import rinte.model.User;
 import rinte.util.Database;
 
@@ -59,7 +60,7 @@ public class UserDAO {
 
     public void addUserBand(int userID, int bandID) {
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO profile_bands(u_id, b_id) VALUES(?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO user_bands(u_id, b_id) VALUES(?, ?)");
             ps.setInt(1, userID);
             ps.setInt(2, bandID);
             ps.executeUpdate();
@@ -70,9 +71,31 @@ public class UserDAO {
 
     public void removeUserBand(int userID, int bandID) {
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM profile_bands WHERE u_id=? AND b_id=?");
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM user_bands WHERE u_id=? AND b_id=?");
             ps.setInt(1, userID);
             ps.setInt(2, bandID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addUserEvent(int userID, int eventID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO user_events(u_id, e_id) VALUES(?, ?)");
+            ps.setInt(1, userID);
+            ps.setInt(2, eventID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeUserEvent(int userID, int eventID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM user_events WHERE u_id=? AND e_id=?");
+            ps.setInt(1, userID);
+            ps.setInt(2, eventID);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +129,7 @@ public class UserDAO {
         List<Band> bandsInUser = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id FROM bands WHERE EXISTS ( SELECT * FROM profile_bands WHERE bands.b_id = profile_bands.b_id AND profile_bands.u_id = ? ) AND bands.isdeleted = 0");
+            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id, artists FROM bands WHERE EXISTS ( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? ) AND bands.isdeleted = 0");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
 
@@ -115,6 +138,7 @@ public class UserDAO {
 
                 band.setB_id(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
+                band.setArtists(rs.getString("artists"));
 
                 bandsInUser.add(band);
             }
@@ -128,7 +152,7 @@ public class UserDAO {
         List<Band> bandsNotInUser = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM profile_bands WHERE bands.b_id = profile_bands.b_id AND profile_bands.u_id = ? ) AND bands.isdeleted = 0");
+            PreparedStatement ps = connection.prepareStatement("SELECT b_id, name FROM bands WHERE NOT EXISTS( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? ) AND bands.isdeleted = 0");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
 
@@ -144,5 +168,51 @@ public class UserDAO {
             e.printStackTrace();
         }
         return bandsNotInUser;
+    }
+
+    public List<Event> getEventsInUser(int userID) {
+        List<Event> eventsInUser = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT e_id, name, date, place FROM events WHERE EXISTS ( SELECT * FROM user_events WHERE events.e_id = user_events.e_id AND user_events.u_id = ? )");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Event event = new Event();
+
+                event.setE_id(rs.getInt("e_id"));
+                event.setName(rs.getString("name"));
+                event.setDate(rs.getDate("date"));
+                event.setPlace(rs.getString("place"));
+
+                eventsInUser.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eventsInUser;
+    }
+
+    public List<Event> getEventsNotInUser(int userID) {
+        List<Event> eventsNotInUser = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT e_id, name FROM events WHERE NOT EXISTS( SELECT * FROM user_events WHERE events.e_id = user_events.e_id AND user_events.u_id = ? )");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Event event = new Event();
+
+                event.setE_id(rs.getInt("e_id"));
+                event.setName(rs.getString("name"));
+
+                eventsNotInUser.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eventsNotInUser;
     }
 }

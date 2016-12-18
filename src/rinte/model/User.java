@@ -13,7 +13,6 @@ public class User {
         private Date birthdate = null;
         private String city = null;
         private Date registeredon = null;
-        private List<Band> user_bands;
 
     public int getU_id() {
         return u_id;
@@ -85,13 +84,5 @@ public class User {
 
     public void setRegisteredon(Date registeredon) {
         this.registeredon = registeredon;
-    }
-
-    public List<Band> getUser_bands() {
-        return user_bands;
-    }
-
-    public void setUser_bands(List<Band> user_bands) {
-        this.user_bands = user_bands;
     }
 }

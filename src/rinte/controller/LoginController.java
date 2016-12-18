@@ -56,10 +56,7 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("currentSessionUser", user.getU_id());
                         session.setAttribute("currentSessionLevel", user.getIsadmin());
 
-                        User usr = daoU.getUserByID(uID);
-                        request.setAttribute("user",usr);
-
-                        view = request.getRequestDispatcher("/WEB-INF/views/userHome.jsp");
+                        view = request.getRequestDispatcher("UserController?action=default");
                         view.forward(request, response);
                     } else {
                         response.sendRedirect("index.jsp");
@@ -96,10 +93,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("currentSessionUser", usr.getU_id());
                 session.setAttribute("currentSessionLevel", usr.getIsadmin());
 
-                User usrr = daoU.getUserByID(uID);
-                request.setAttribute("user",usrr);
-
-                view = request.getRequestDispatcher("/WEB-INF/views/userHome.jsp");
+                view = request.getRequestDispatcher("UserController?action=default");
                 view.forward(request, response);
                 break;
         }
