@@ -5,14 +5,13 @@ import java.util.Date;
 public class User {
         private int u_id = -1;
         private String username = null;
+        private String email = null;
         private String password = null;
         private short isadmin = -1;
         private String name = null;
         private Date birthdate = null;
         private String city = null;
         private Date registeredon = null;
-
-        public boolean valid;
 
     public int getU_id() {
         return u_id;
@@ -28,6 +27,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -76,13 +83,5 @@ public class User {
 
     public void setRegisteredon(Date registeredon) {
         this.registeredon = registeredon;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean newValid) {
-        valid = newValid;
     }
 }

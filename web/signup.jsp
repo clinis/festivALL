@@ -65,6 +65,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="email" class="control-label">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Insert your email address" required="true"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="password" class="control-label">Password</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>

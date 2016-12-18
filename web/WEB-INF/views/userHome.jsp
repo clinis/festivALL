@@ -51,9 +51,9 @@
                                 <div class="col-xs-6  col-md-3 col-lg-3 " align="center">
                                     <img class='img-responsive img-thumbnail' src='libs/img/user.png'/>
                                     <p>
-                                    <form method="POST" action="UserController">
+                                    <form method="POST" action="UserController?action=edit">
                                         <input type='hidden' name='u_id' value="<c:out value="${sessionScope.currentSessionUser.u_id}"/>" />
-                                        <input type="submit" name="edit" value="Editar dados" class='btn btn-success btn-sm'></input>
+                                        <input type="submit" name="edit" value="Edit profile" class='btn btn-info btn-sm'></input>
                                     </form>
                                 </div>
                                 <div class="col-xs-10 col-md-9 col-lg-9">
@@ -66,6 +66,10 @@
                                             <tr>
                                                 <td>Username</td>
                                                 <td> <c:out value="${sessionScope.currentSessionUser.username}"/> </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td> <c:out value="${sessionScope.currentSessionUser.email}"/> </td>
                                             </tr>
                                             <tr>
                                                 <td>Birthdate</td>

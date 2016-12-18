@@ -51,10 +51,10 @@ public class LoginController extends HttpServlet {
                         user = dao.getUserByID(uID);
                         session.setAttribute("currentSessionUser", user);
 
-                        view = request.getRequestDispatcher("/WEB-INF/views/userArea.jsp");
+                        view = request.getRequestDispatcher("/WEB-INF/views/userHome.jsp");
                         view.forward(request, response);
                     } else {
-                        response.sendRedirect("index.jsp"); //error page
+                        response.sendRedirect("index.jsp");
                     }
                 } catch (Throwable theException) {
                     System.out.println(theException);
@@ -63,13 +63,14 @@ public class LoginController extends HttpServlet {
 
             case "logout":
                 session.invalidate();
-                response.sendRedirect("index.jsp"); //error page
+                response.sendRedirect("index.jsp");
                 break;
 
             case "signup":
                 int uID;
                 User user = new User();
                 user.setUsername(request.getParameter("username"));
+                user.setEmail(request.getParameter("email"));
                 user.setPassword(request.getParameter("password"));
                 user.setName(request.getParameter("name"));
                 try {
@@ -86,7 +87,7 @@ public class LoginController extends HttpServlet {
                 user = dao.getUserByID(uID);
                 session.setAttribute("currentSessionUser", user);
 
-                view = request.getRequestDispatcher("/WEB-INF/views/userArea.jsp");
+                view = request.getRequestDispatcher("/WEB-INF/views/userHome.jsp");
                 view.forward(request, response);
                 break;
         }

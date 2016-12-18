@@ -18,12 +18,13 @@ public class UserDAO {
     public int createUser(User usr) {
         int uID = -1;
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(username, password, name, birthdate, city) values(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(username, email, password, name, birthdate, city) values(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, usr.getUsername());
-            ps.setString(2, usr.getPassword());
-            ps.setString(3, usr.getName());
-            ps.setDate(4, new java.sql.Date(usr.getBirthdate().getTime()));
-            ps.setString(5, usr.getCity());
+            ps.setString(2, usr.getEmail());
+            ps.setString(3, usr.getPassword());
+            ps.setString(4, usr.getName());
+            ps.setDate(5, new java.sql.Date(usr.getBirthdate().getTime()));
+            ps.setString(6, usr.getCity());
             ps.executeUpdate();
 
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
@@ -39,6 +40,20 @@ public class UserDAO {
             e.printStackTrace();
         }
         return uID;
+    }
+
+    public void updateUser(User usr) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name=?, email=?, birthdate=?, city=?  WHERE u_id=?");
+            preparedStatement.setString(1, usr.getName());
+            preparedStatement.setString(2, usr.getEmail());
+            preparedStatement.setDate(3, new java.sql.Date(usr.getBirthdate().getTime()));
+            preparedStatement.setString(4, usr.getCity());
+            preparedStatement.setInt(5, usr.getU_id());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public int login(User usr) {
@@ -70,6 +85,7 @@ public class UserDAO {
             if (rs.next()) {
                 user.setU_id(rs.getInt("u_id"));
                 user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
                 user.setIsadmin(rs.getShort("isadmin"));
                 user.setName(rs.getString("name"));
                 user.setBirthdate(rs.getDate("birthdate"));
