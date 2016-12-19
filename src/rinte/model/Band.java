@@ -5,7 +5,6 @@ import java.util.Date;
 public class Band {
     private int b_id = -1;
     private String name = null;
-    private String image = null;
     private String artists = null;
     private Date registeredon = null;
 
@@ -25,14 +24,6 @@ public class Band {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getArtists() {

@@ -80,7 +80,6 @@ public class BandController extends HttpServlet {
                     band = new Band();
                     band.setB_id(Integer.parseInt(request.getParameter("b_id")));
                     band.setName(request.getParameter("name"));
-                    band.setImage(request.getParameter("image"));
                     band.setArtists(request.getParameter("artists"));
 
                     dao.updateBand(band);
@@ -92,7 +91,6 @@ public class BandController extends HttpServlet {
                 case "added":
                     band = new Band();
                     band.setName(request.getParameter("name"));
-                    band.setImage(request.getParameter("image"));
                     band.setArtists(request.getParameter("artists"));
 
                     dao.addBand(band);

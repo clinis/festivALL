@@ -18,10 +18,9 @@ public class BandDAO {
 
     public void addBand(Band bnd) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bands(name, image, artists) values (?, ?, ? )");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO bands(name, artists) values (?, ? )");
             preparedStatement.setString(1, bnd.getName());
-            preparedStatement.setString(2, bnd.getImage());
-            preparedStatement.setString(3, bnd.getArtists());
+            preparedStatement.setString(2, bnd.getArtists());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -42,11 +41,10 @@ public class BandDAO {
 
     public void updateBand(Band bnd) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bands SET name=?, image=?, artists=? WHERE b_id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE bands SET name=?, artists=? WHERE b_id=?");
             preparedStatement.setString(1, bnd.getName());
-            preparedStatement.setString(2, bnd.getImage());
-            preparedStatement.setString(3, bnd.getArtists());
-            preparedStatement.setInt(4, bnd.getB_id());
+            preparedStatement.setString(2, bnd.getArtists());
+            preparedStatement.setInt(3, bnd.getB_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,7 +60,6 @@ public class BandDAO {
                 Band band = new Band();
                 band.setB_id(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
-                band.setImage(rs.getString("image"));
                 band.setArtists(rs.getString("artists"));
                 band.setRegisteredon(rs.getDate("registeredon"));
                 bands.add(band);
@@ -83,7 +80,6 @@ public class BandDAO {
             if (rs.next()) {
                 band.setB_id(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
-                band.setImage(rs.getString("image"));
                 band.setArtists(rs.getString("artists"));
                 band.setRegisteredon(rs.getDate("registeredon"));
             }
