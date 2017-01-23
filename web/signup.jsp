@@ -10,18 +10,16 @@
     <title>Signup</title>
 
     <!-- bootstrap CSS -->
-    <link href="<c:url value="/libs/css/bootstrap.css" />" rel="stylesheet" media="screen" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<c:url value="/libs/js/jquery.js" />"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- bootstrap JavaScript -->
-    <script src="<c:url value="/libs/js/bootstrap.js" />"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="<c:url value="/libs/fonts/font-awesome-4.6.1/css/font-awesome.min.css" />">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
     <!-- Bootstrap Form Helpers -->
     <link href="<c:url value="/libs/css/bootstrap-formhelpers.css" />" rel="stylesheet" media="screen" />
     <script src="<c:url value="/libs/js/bootstrap-formhelpers.js" />"></script>
-    <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.js" />"></script>
-    <script src="<c:url value="/libs/js/bootstrap-formhelpers-countries.pt_BR.js" />"></script>
 </head>
 <body>
     <%@ include file="nav.jsp"%>
