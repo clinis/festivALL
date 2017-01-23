@@ -14,9 +14,6 @@
     <!-- bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
-        .myTransparentBreadcrumb {
-            background-color: rgba(255,255,255, 0.3);
-        }
         .myTransparentBreadcrumb > li + li:before {
             color: rgb(2,2,2);
         }

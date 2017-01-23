@@ -59,11 +59,8 @@ ${requestScope['javax.servlet.forward.request_uri']}--%>
 <style>
     body {
         padding-top: 70px;
-        background: url(libs/img/Phones.png);
-        background-position: center center;
-        background-attachment: fixed;
         background-size: cover;
-        background-repeat: no-repeat;
+        background: url(libs/img/Phones.png) no-repeat fixed center center;
     }
     .myTransparent {
         background-color: rgba(255,255,255, 0.5);
