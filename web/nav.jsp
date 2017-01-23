@@ -1,14 +1,6 @@
-<%--${pageContext.request.servletPath}
-<br>
-${pageContext.request.requestURI}
-<br>
-${pageContext.request.requestURL}
-<br>
-${requestScope['javax.servlet.forward.request_uri']}--%>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -20,7 +12,6 @@ ${requestScope['javax.servlet.forward.request_uri']}--%>
             <a class="navbar-brand visible-sm" href="index.jsp">festivALL</a>
             <a class="navbar-brand hidden-xs hidden-sm" href="index.jsp">festivALL - all the festivals!</a>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="${pageContext.request.servletPath eq '/index.jsp' ? ' active' : ''}"><a href="index.jsp">Home Page</a></li>
@@ -53,14 +44,17 @@ ${requestScope['javax.servlet.forward.request_uri']}--%>
                     </c:otherwise>
                 </c:choose>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container -->
+        </div>
+    </div>
 </nav>
 <style>
     body {
         padding-top: 70px;
+        background: url(libs/img/Phones.png);
+        background-position: center center;
+        background-attachment: fixed;
         background-size: cover;
-        background: url(libs/img/Phones.png) no-repeat fixed center center;
+        background-repeat: no-repeat;
     }
     .myTransparent {
         background-color: rgba(255,255,255, 0.5);
