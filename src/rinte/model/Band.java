@@ -7,6 +7,7 @@ public class Band {
     private String name = null;
     private String artists = null;
     private Date registeredon = null;
+    private int timesSeen = 0;
 
     public Band() { }
 
@@ -40,5 +41,13 @@ public class Band {
 
     public void setRegisteredon(Date registeredon) {
         this.registeredon = registeredon;
+    }
+
+    public int getTimesSeen() {
+        return timesSeen;
+    }
+
+    public void setTimesSeen(int timesSeen) {
+        this.timesSeen = timesSeen;
     }
 }

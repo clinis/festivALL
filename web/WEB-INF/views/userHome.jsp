@@ -103,7 +103,7 @@
                     <c:forEach items="${userB}" var="ub">
                         <div class='col-xs-4'>
                             <div class='panel panel-default'>
-                                <div class='panel-heading'><c:out value="${ub.name}" /></div>
+                                <div class='panel-heading'><c:out value="${ub.name}" /> (<c:out value="${ub.timesSeen}" />)</div>
                                 <div class='panel-body'>
                                     <c:out value="${ub.artists}" />
                                 </div>

@@ -128,7 +128,7 @@ public class UserDAO {
         List<Band> bandsInUser = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT name, b_id, artists FROM bands WHERE EXISTS ( SELECT * FROM user_bands WHERE bands.b_id = user_bands.b_id AND user_bands.u_id = ? )");
+            PreparedStatement ps = connection.prepareStatement("SELECT *, contagem FROM bands JOIN ( SELECT b_id AS bid, COUNT(*) AS contagem FROM ( SELECT b_id FROM events_bands WHERE e_id IN ( SELECT e_id FROM user_events WHERE user_events.u_id = ? ) ) AS ddd GROUP BY ddd.b_id ) as secondSet ON bands.b_id = secondSet.bid;");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
 
@@ -138,6 +138,7 @@ public class UserDAO {
                 band.setB_id(rs.getInt("b_id"));
                 band.setName(rs.getString("name"));
                 band.setArtists(rs.getString("artists"));
+                band.setTimesSeen(rs.getInt("contagem"));
 
                 bandsInUser.add(band);
             }
