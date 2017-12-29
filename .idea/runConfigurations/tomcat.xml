@@ -3,7 +3,7 @@
     <option name="BROWSER_ID" value="e5120d43-2c3f-47ef-9f26-65e539e05186" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
-      <artifact name="festivall:war exploded">
+      <artifact name="festivall exploded">
         <settings>
           <option name="CONTEXT_PATH" value="/festivall" />
         </settings>
@@ -68,7 +68,7 @@
     </ConfigurationWrapper>
     <method>
       <option name="BuildArtifacts" enabled="true">
-        <artifact name="festivall:war exploded" />
+        <artifact name="festivall exploded" />
       </option>
     </method>
   </configuration>

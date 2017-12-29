@@ -1,0 +1,24 @@
+version: "3"
+services:
+  # MySQL database shared with tomcat container
+  db:
+    image: mysql:latest
+    container_name: docker_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "festivall"
+    volumes:
+      - "./festivall.sql:/docker-entrypoint-initdb.d/festivall.sql"
+
+  # Tomcat virtual host
+  tomcat:
+    image: tomcat:latest
+    container_name: docker_tomcat
+    depends_on:
+      - db
+    environment:
+      JDBC_URL: "jdbc:mysql://docker_mysql:3306/festivall?useUnicode=yes&amp;characterEncoding=UTF-8"
+    volumes:
+      - "./out/artifacts/festivall:/usr/local/tomcat/webapps"
+    ports:
+      - "8888:8080"

@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="festivall:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/festivall_war_exploded</output-path>
+  <artifact type="exploded-war" name="festivall exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/festivall_exploded</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="festivall/web/Web" />
       <element id="directory" name="WEB-INF">

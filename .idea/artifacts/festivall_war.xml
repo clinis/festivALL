@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="festivall:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/festivall_war</output-path>
-    <root id="archive" name="festivall_war.war">
-      <element id="artifact" artifact-name="festivall:war exploded" />
-    </root>
-  </artifact>
-</component>
